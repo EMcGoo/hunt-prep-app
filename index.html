@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hunt Prep">
+<meta name="theme-color" content="#1a1a0e">
+<link rel="manifest" href="manifest.json">
+<title>Hunt Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0f08;
+  --bg2: #1a1a0e;
+  --bg3: #252518;
+  --card: #1e1e13;
+  --card2: #272718;
+  --border: rgba(180,160,80,0.15);
+  --border2: rgba(180,160,80,0.3);
+  --gold: #c8a84b;
+  --gold2: #e8c86b;
+  --gold-dim: rgba(200,168,75,0.15);
+  --orange: #d4622a;
+  --orange-dim: rgba(212,98,42,0.15);
+  --green: #4a7c3f;
+  --green2: #6aad5f;
+  --green-dim: rgba(74,124,63,0.15);
+  --blue: #3a6496;
+  --blue-dim: rgba(58,100,150,0.15);
+  --red: #8b2020;
+  --red2: #c43030;
+  --red-dim: rgba(139,32,32,0.15);
+  --purple: #6b3a8b;
+  --purple-dim: rgba(107,58,139,0.15);
+  --text: #e8e0c8;
+  --text2: #a09880;
+  --text3: #6a6050;
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* ── SPLASH ── */
+#splash {
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #2a2a10 0%, #0f0f08 70%);
+}
+.splash-logo {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  line-height: 1;
+  text-align: center;
+}
+.splash-sub {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text2);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-top: 8px;
+  text-align: center;
+}
+.splash-icon {
+  font-size: 80px;
+  margin-bottom: 24px;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+.splash-btn {
+  margin-top: 48px;
+  background: var(--gold);
+  color: #0f0f08;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  transition: background 0.2s, transform 0.1s;
+}
+.splash-btn:active { transform: scale(0.97); background: var(--gold2); }
+
+/* ── TOP NAV ── */
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topbar-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  flex: 1;
+}
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+}
+.topbar-action {
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  font-family: var(--font-body);
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.topbar-action.active { background: var(--gold-dim); color: var(--gold); border-color: var(--gold); }
+
+/* ── BOTTOM NAV ── */
+.bottomnav {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px 12px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text3);
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.nav-btn .nav-icon { font-size: 22px; }
+.nav-btn.active { color: var(--gold); }
+
+/* ── SCROLLABLE CONTENT ── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 16px 90px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── HOME SCREEN ── */
+.home-header {
+  background: linear-gradient(135deg, var(--bg3) 0%, var(--card) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.home-header h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.home-header p { font-size: 13px; color: var(--text2); margin-top: 4px; }
+.countdown-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.countdown-chip {
+  flex: 1;
+  background: var(--gold-dim);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 12px 8px;
+  text-align: center;
+}
+.countdown-num {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.countdown-label { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.mode-btn {
+  flex: 1;
+  padding: 14px 8px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text2);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+.mode-btn.active {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ── WEEK CARDS ── */
+.week-section-label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 20px 0 8px;
+}
+.week-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.week-card:active { border-color: var(--gold); }
+.week-card.current { border-color: var(--gold); }
+.week-card-header {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.week-num-badge {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--text3);
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 54px;
+  text-align: center;
+}
+.week-card.current .week-num-badge { background: var(--gold); }
+.week-info { flex: 1; }
+.week-title-text {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.week-meta { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.week-progress-row {
+  display: flex;
+  gap: 4px;
+  padding: 0 16px 12px;
+}
+.day-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex: 1;
+  max-width: 36px;
+}
+.day-dot.done { background: var(--green); border-color: var(--green2); color: white; }
+.day-dot.rest { background: var(--bg3); color: var(--text3); }
+.day-dot.workout { border-color: var(--gold); color: var(--gold); }
+.day-dot.ruck { border-color: var(--orange); color: var(--orange); }
+.day-dot.zone2 { border-color: var(--green2); color: var(--green2); }
+
+/* ── FREESTYLE CALENDAR ── */
+.freestyle-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.fs-day {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.fs-day:active { border-color: var(--gold); }
+.fs-day-label { font-size: 9px; color: var(--text3); text-transform: uppercase; font-weight: 600; }
+.fs-day-icon { font-size: 18px; margin: 4px 0; }
+.fs-day-name { font-size: 9px; color: var(--text2); }
+.fs-day.done { border-color: var(--green); background: var(--green-dim); }
+
+/* ── WORKOUT LIBRARY ── */
+.library-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.lib-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lib-card:active { transform: scale(0.97); }
+.lib-icon { font-size: 28px; }
+.lib-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+.lib-meta { font-size: 11px; color: var(--text2); }
+.lib-tag {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  align-self: flex-start;
+}
+
+/* ── WORKOUT DETAIL ── */
+.workout-hero {
+  background: linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.workout-hero-icon { font-size: 48px; }
+.workout-hero-info { flex: 1; }
+.workout-hero-name {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.workout-hero-meta { font-size: 13px; color: var(--text2); margin-top: 6px; }
+.done-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--green);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: all 0.2s;
+}
+.done-btn:active { transform: scale(0.98); }
+.done-btn.completed { background: var(--bg3); border: 1px solid var(--green); color: var(--green2); }
+
+.block-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.block-header {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.block-badge {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.block-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex: 1;
+}
+.block-time { font-size: 12px; color: var(--text2); white-space: nowrap; }
+
+.ex-row {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.ex-row:last-child { border-bottom: none; }
+.ex-info { flex: 1; }
+.ex-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+.ex-detail { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.ex-note { font-size: 11px; color: var(--text3); font-style: italic; margin-top: 3px; }
+.ex-equip {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.eq-kb { background: rgba(200,168,75,0.15); color: var(--gold); }
+.eq-db { background: rgba(74,124,63,0.2); color: var(--green2); }
+.eq-band { background: rgba(107,58,139,0.2); color: #a06bc8; }
+.eq-station { background: rgba(58,100,150,0.2); color: #6a9ed8; }
+.eq-mace { background: rgba(74,124,63,0.15); color: #8acd7f; }
+.eq-sb { background: rgba(212,98,42,0.2); color: #e0885a; }
+.eq-bw { background: rgba(160,152,128,0.15); color: var(--text2); }
+
+/* ── STATS ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 14px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.phase-card-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.phase-card-stat h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.phase-card-stat p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.streak-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.streak-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+}
+.streak-dot.done { background: var(--green); border-color: var(--green2); }
+.streak-dot.today { background: var(--gold); border-color: var(--gold2); }
+
+/* ── DAY PICKER SHEET ── */
+.sheet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 200;
+  align-items: flex-end;
+}
+.sheet-overlay.open { display: flex; }
+.sheet {
+  background: var(--bg2);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 0 0 40px;
+  border-top: 1px solid var(--border2);
+}
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--text3);
+  border-radius: 2px;
+  margin: 12px auto 20px;
+}
+.sheet-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0 20px;
+  margin-bottom: 4px;
+}
+.sheet-sub { font-size: 13px; color: var(--text2); padding: 0 20px; margin-bottom: 16px; }
+.sheet-option {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  border-top: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.sheet-option:active { background: var(--gold-dim); }
+.sheet-opt-icon { font-size: 24px; width: 36px; text-align: center; }
+.sheet-opt-info { flex: 1; }
+.sheet-opt-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.sheet-opt-meta { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.sheet-cancel {
+  margin: 12px 20px 0;
+  padding: 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text2);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ── RUCK GUIDANCE ── */
+.ruck-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.ruck-week-badge {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.ruck-spec {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.ruck-detail { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ── UTIL ── */
+.badge-warmup { background: rgba(74,124,63,0.2); color: var(--green2); }
+.badge-a { background: rgba(200,168,75,0.2); color: var(--gold); }
+.badge-b { background: rgba(212,98,42,0.2); color: #e0885a; }
+.badge-c { background: rgba(58,100,150,0.2); color: #6a9ed8; }
+.badge-d { background: rgba(74,124,63,0.2); color: var(--green2); }
+.badge-e { background: rgba(200,168,75,0.15); color: var(--gold2); }
+.badge-finisher { background: rgba(212,98,42,0.2); color: #e0885a; }
+.badge-cool { background: rgba(160,152,128,0.1); color: var(--text3); }
+.badge-deload { background: rgba(107,58,139,0.2); color: #a06bc8; }
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 20px 0 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text3);
+}
+.empty-state .es-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; line-height: 1.6; }
+
+.research-note {
+  background: var(--blue-dim);
+  border: 1px solid rgba(58,100,150,0.3);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #8ab8e8;
+  line-height: 1.6;
+}
+.research-note strong { color: #6a9ed8; }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" class="screen active">
+  <div class="splash-icon">🦌</div>
+  <div class="splash-logo">HUNT<br>PREP</div>
+  <div class="splash-sub">Elk Archery Training</div>
+  <button class="splash-btn" onclick="enterApp()">Let's Go</button>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="screen">
+
+  <!-- BOTTOM NAV -->
+  <div class="bottomnav">
+    <button class="nav-btn active" id="nav-schedule" onclick="showTab('schedule')">
+      <span class="nav-icon">📅</span>Schedule
+    </button>
+    <button class="nav-btn" id="nav-workouts" onclick="showTab('workouts')">
+      <span class="nav-icon">💪</span>Workouts
+    </button>
+    <button class="nav-btn" id="nav-ruck" onclick="showTab('ruck')">
+      <span class="nav-icon">🎒</span>Ruck
+    </button>
+    <button class="nav-btn" id="nav-stats" onclick="showTab('stats')">
+      <span class="nav-icon">📊</span>Progress
+    </button>
+  </div>
+
+  <!-- ── TAB: SCHEDULE ── -->
+  <div id="tab-schedule" class="tab-content" style="display:flex;flex-direction:column;flex:1;min-height:100vh;">
+    <div class="topbar">
+      <span class="topbar-title">Schedule</span>
+    </div>
+    <div class="content">
+      <div class="home-header">
+        <h2>September Hunt</h2>
+        <p>3rd week of September · Stay the course</p>
+        <div class="countdown-row">
+          <div class="countdown-chip">
+            <div class="countdown-num" id="weeks-left">--</div>
+            <div class="countdown-label">Weeks</div>
+          </div>
+          <div class="countdown-chip">
+            <div class="countdown-num" id="days-left">--</div>
+            <div class="countdown-label">Days</div>
+          </div>
+          <div class="countdown-chip">
+            <div class="countdown-num" id="current-week">1</div>
+            <div class="countdown-label">Current Wk</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mode-toggle">
+        <div class="mode-btn active" id="mode-guided" onclick="setMode('guided')">📋 Guided Program</div>
+        <div class="mode-btn" id="mode-free" onclick="setMode('free')">🎯 Freestyle</div>
+      </div>
+
+      <!-- GUIDED PROGRAM -->
+      <div id="guided-view">
+        <div id="weeks-list"></div>
+      </div>
+
+      <!-- FREESTYLE -->
+      <div id="free-view" style="display:none;">
+        <div class="section-title">This Week</div>
+        <div class="freestyle-grid" id="freestyle-grid"></div>
+        <div class="section-title">Tap a day to log a workout</div>
+        <div class="library-grid" id="free-library"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: WORKOUTS ── -->
+  <div id="tab-workouts" class="tab-content" style="display:none;flex-direction:column;flex:1;min-height:100vh;">
+    <div class="topbar">
+      <span class="topbar-title">Workouts</span>
+    </div>
+    <div class="content">
+      <div class="section-title">Full Training Library</div>
+      <div class="library-grid" id="main-library"></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: RUCK ── -->
+  <div id="tab-ruck" class="tab-content" style="display:none;flex-direction:column;flex:1;min-height:100vh;">
+    <div class="topbar">
+      <span class="topbar-title">Ruck Guide</span>
+    </div>
+    <div class="content">
+      <div class="research-note">
+        <strong>Research:</strong> Knapik (2012) meta-analysis found rucking produced the largest load-carriage effect size of any training modality — 1.7 SD vs 0.75 for strength alone. This is non-substitutable for September performance.
+      </div>
+      <div class="section-title">Zone 2 Rule</div>
+      <div class="ruck-card" style="margin-bottom:16px;">
+        <div class="ruck-detail">Walk/hike at a pace where you can breathe through your nose and hold a conversation. Heart rate roughly 180 minus your age. If you're mouth breathing you're going too hard. Build the aerobic engine that carries you on day 5.</div>
+      </div>
+      <div class="section-title">Progressive Ruck Schedule</div>
+      <div id="ruck-list"></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: STATS ── -->
+  <div id="tab-stats" class="tab-content" style="display:none;flex-direction:column;flex:1;min-height:100vh;">
+    <div class="topbar">
+      <span class="topbar-title">Progress</span>
+    </div>
+    <div class="content">
+      <div class="stats-grid" id="stats-grid"></div>
+      <div class="section-title">21-Week Phases</div>
+      <div id="phase-breakdown"></div>
+      <div class="section-title">Activity Streak (last 21 days)</div>
+      <div class="streak-row" id="streak-row"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WORKOUT DETAIL SCREEN -->
+<div id="workout-screen" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="closeWorkout()">←</button>
+    <span class="topbar-title" id="workout-screen-title">Workout</span>
+    <div style="width:40px;"></div>
+  </div>
+  <div class="content" id="workout-content"></div>
+</div>
+
+<!-- DAY SHEET -->
+<div class="sheet-overlay" id="day-sheet" onclick="closeSheet(event)">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="sheet-title">Choose Workout</div>
+    <div class="sheet-sub" id="sheet-sub">Select a session for this day</div>
+    <div id="sheet-options"></div>
+    <div class="sheet-cancel" onclick="closeSheet()">Cancel</div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════
+
+const WORKOUTS = {
+  fullbody: {
+    id: 'fullbody',
+    name: 'Full Body',
+    icon: '⚡',
+    meta: '60 min · Research-tuned elk prep',
+    tag: 'Full Body',
+    tagColor: 'badge-a',
+    libTag: 'eq-kb',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Shoulder + Hip + Posterior Chain', time: '7 min',
+        exercises: [
+          { name: 'Dead Hang + Scapular Pulls', detail: '2 × 30 sec — hang, retract shoulder blades without bending elbows, 1-sec hold. Activates lower trap before pulling load.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Band Pull-Apart — Diagonal Up, Palms Up', detail: '2 × 15 — diagonal-up direction maximizes upper, middle, and lower trap. Palm-up grip raises infraspinatus activation ~11% MVC.', equip: 'Bands', eqClass: 'eq-band', note: 'Research: Fukunaga 2022 — this exact variation' },
+          { name: 'KB Goblet Squat + Pause', detail: '2 × 8 — one 45 lb KB, 3-sec hold at bottom. Mobilizes hips and ankles.', equip: '45 lb KB', eqClass: 'eq-kb' },
+          { name: "World's Greatest Stretch", detail: '6 each side — lunge, elbow to floor, rotate overhead. Opens hips, t-spine, and ankles.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Weighted Pull-Up + Weighted Dip — Strength Anchor', time: '14 min · 4 rounds',
+        exercises: [
+          { name: 'A1 — Weighted Pull-Up (Pronated Grip)', detail: '5–6 reps — pronated grip activates lower trap and lats more than supinated. 45 lb KB on belt or between feet. Dead hang every rep, 3-sec controlled descent.', equip: 'Pull Station + KB', eqClass: 'eq-station', note: 'Straight into A2 · Research: Youdas 2010 — 117% MVC lat activation' },
+          { name: 'A2 — Weighted Dip', detail: '6–8 reps — same KB. Limit depth to ~90° elbow flexion to protect anterior shoulder capsule. Forward lean for chest, full lockout. No bouncing.', equip: 'Dip Station + KB', eqClass: 'eq-station', note: 'Rest 90 sec, repeat A1' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Mountain Legs — BSS + Front Rack Squat', time: '14 min · 4 rounds',
+        exercises: [
+          { name: 'B1 — KB Bulgarian Split Squat', detail: '8 each leg — KBs at sides or goblet, rear foot on chair/step. Eccentrically loads hip flexors under stretch. Highest VM activation (~85% MVC) of any unilateral exercise tested.', equip: 'KBs', eqClass: 'eq-kb', note: 'Straight into B2 · Research: Applied Sciences 2025' },
+          { name: 'B2 — Double KB Front Rack Squat', detail: '8 reps — both 45 lb KBs racked, elbows high, full depth. Upright torso trains stability for steep terrain and shooting positions.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Rest 75 sec, repeat B1' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Carry Complex — Farmer + Suitcase', time: '10 min · 4 rounds',
+        exercises: [
+          { name: 'C1 — Double KB Farmer Carry', detail: '50 ft — both 45 lb KBs, shoulders packed, walk tall. Biomechanically validated as a dynamic deadlift with gait loading — the closest gym analog to hiking with a pack.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Straight into C2' },
+          { name: 'C2 — KB Suitcase Carry', detail: '50 ft each side — one 70 lb KB, resist lateral lean. Greater quadratus lumborum and oblique activation per total load than bilateral farmer carry. Trains uneven terrain demands.', equip: '70 lb KB', eqClass: 'eq-kb', note: 'Rest 75 sec, repeat · Research: McGill 2009' },
+        ]
+      },
+      {
+        label: 'Block D', badge: 'badge-d', title: 'McGill Big-3 Core', time: '8 min · 3 rounds',
+        exercises: [
+          { name: 'McGill Curl-Up', detail: '10-6-4 descending reps — one knee bent, hands under lumbar curve, head barely lifts. Loads rectus without spinal flexion stress.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Research: Axler & McGill — validated for load-carriage transfer' },
+          { name: 'Side Plank', detail: '3 × 10-sec holds each side — elbow under shoulder, body straight. Highest QL and oblique activation with minimal spinal compression. Anti-lateral flexion for sideslope stability.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Bird-Dog', detail: '8 each side — opposite arm and leg, hold 8 sec at extension. Trains multifidus and erector under anti-extension load with limb movement. Same stability pattern as walking uphill under pack.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Rest 45 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Block E', badge: 'badge-e', title: 'Single-Leg Hinge + Sandbag Power', time: '7 min · 3 rounds',
+        exercises: [
+          { name: 'Single-Leg KB RDL', detail: '6 each side — 70 lb KB, slow and controlled. Single-leg eccentric hamstring strength — the injury prevention movement for steep descents under load.', equip: '70 lb KB', eqClass: 'eq-kb' },
+          { name: '160 lb Sandbag Clean to Shoulder', detail: '3 each side — from the floor, hip drive, pull high, load onto shoulder. EMG confirmed equivalent primary-mover activation to barbell clean with added core demand. This is hoisting a bull elk quarter.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Rest 60 sec, repeat · Max 1x per 10–14 days on heavy version' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'KB Swings + Face Pull — 5 Min AMRAP', time: '5 min',
+        exercises: [
+          { name: '70 lb KB Swings', detail: '15 reps — Lake & Lauder (2012): this exact load is the peak power inflection point hitting ~87% HRmax. Hip snap, float at top, breathe at hinge.', equip: '70 lb KB', eqClass: 'eq-kb' },
+          { name: 'Band Face Pull — Neutral Grip', detail: '15 reps — hook band at face height, pull to forehead, elbows high. Neutral grip maximizes posterior delt and infraspinatus. Cycle both for 5 min.', equip: 'Bands', eqClass: 'eq-band' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Mobility', time: '3 min',
+        exercises: [
+          { name: 'Dead Hang', detail: '45 sec — full spinal and shoulder decompression after weighted pulls and heavy carries.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Pigeon Pose + Hip Flexor Stretch', detail: "45 sec each side — BSS eccentrically loads the rear-leg hip flexor. Don't skip this or it'll tighten overnight.", equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Cross-Body Shoulder Stretch', detail: '30 sec each side — rear capsule decompression after weighted pull-ups, carries, and sandbag work.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  upper: {
+    id: 'upper',
+    name: 'Upper Body',
+    icon: '💪',
+    meta: '60 min · Pull, push, carry, shoulder health',
+    tag: 'Upper Body',
+    tagColor: 'badge-c',
+    libTag: 'eq-station',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Shoulder + Upper Back Activation', time: '6 min',
+        exercises: [
+          { name: 'Dead Hang + Scapular Pulls', detail: '2 × 30 sec — activate the upper back before any loading.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Mace Halo', detail: '2 × 10 each direction — slow circles, open shoulder girdle and thoracic spine.', equip: 'Mace', eqClass: 'eq-mace' },
+          { name: 'Band Pull-Apart + Face Pull', detail: '2 × 15 each — diagonal-up pull-aparts, face pull to forehead. Rear delts and rotator cuff primed.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Push-Up to Down Dog', detail: '10 reps — press up, pike hips high, hold 2 sec. Chest, shoulders, lats all warmed up.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Weighted Pull-Up + Weighted Dip', time: '15 min · 4 rounds',
+        exercises: [
+          { name: 'A1 — Weighted Pull-Up', detail: '5–6 reps — 45 lb KB on belt or between feet. Dead hang every rep, 3-sec descent. Treat like a main lift.', equip: 'Pull Station + KB', eqClass: 'eq-station', note: 'Straight into A2' },
+          { name: 'A2 — Weighted Dip', detail: '6–8 reps — same KB. ~90° elbow depth, forward lean, full lockout, no bounce.', equip: 'Dip Station + KB', eqClass: 'eq-station', note: 'Rest 90 sec, repeat A1' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Horizontal Push + Horizontal Pull', time: '14 min · 4 rounds',
+        exercises: [
+          { name: 'B1 — Band Resisted Push-Up', detail: '12–15 reps — band across back held in each hand. Chest to floor every rep, full lockout. Band loads the lockout where push-ups get easy.', equip: 'Bands', eqClass: 'eq-band', note: 'Straight into B2 · Research: Calatayud 2015 — equivalent to bench press EMG' },
+          { name: 'B2 — Inverted Row', detail: '12 reps — bar low on station, body straight, heels on ground, pull chest to bar. Squeeze scapula, hold 1 sec. Lower angle = harder.', equip: 'Pull Station', eqClass: 'eq-station', note: 'Rest 60 sec, repeat B1' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Shoulder + Arm + Upper Back', time: '12 min · 3 rounds',
+        exercises: [
+          { name: 'Single-Arm KB Overhead Press', detail: '8 each side — 45 lb KB, strict, no leg drive. Brace the opposite oblique hard. Lock out overhead, 3-sec descent.', equip: '45 lb KB', eqClass: 'eq-kb' },
+          { name: 'DB Curl + Band Tricep Pushdown', detail: '10 DB curls + 15 pushdowns — hook band high on station. Biceps and triceps back to back. Builds elbow stability for heavy carry sessions.', equip: 'DB + Bands', eqClass: 'eq-db' },
+          { name: 'DB Lateral Raise — Slow Eccentric', detail: '12 reps — 3-sec lowering every rep. Medial delt isolation. Pre-fatigued shoulders make moderate weight hit hard.', equip: 'Dumbbells', eqClass: 'eq-db', note: 'Rest 60 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Block D', badge: 'badge-d', title: 'Farmer Carry Complex', time: '8 min · 4 rounds',
+        exercises: [
+          { name: 'Double KB Farmer Carry', detail: '50 ft — both 45 lb KBs, shoulders packed, walk tall. Grip, traps, core simultaneously. Most underrated upper body exercise.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Straight into D2' },
+          { name: 'KB Suitcase Carry', detail: '50 ft each side — one 70 lb KB, resist the lean. Different grip pattern from farmer carry. Lateral core demands of uneven terrain.', equip: '70 lb KB', eqClass: 'eq-kb', note: 'Rest 75 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'Mace + KB Swings — 5 Min AMRAP', time: '5 min',
+        exercises: [
+          { name: 'Mace 10-to-2 Swings', detail: '12 reps — rotational power and shoulder endurance. Smooth arc, core locked.', equip: 'Mace', eqClass: 'eq-mace' },
+          { name: '70 lb KB Swings', detail: '15 reps — hip snap, float at the top. Minimal leg demand, mostly posterior chain and cardio. Cycle both for 5 min.', equip: '70 lb KB', eqClass: 'eq-kb' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Shoulder + Chest + Forearm Recovery', time: '3 min',
+        exercises: [
+          { name: 'Dead Hang', detail: '45 sec — full decompression after all the pulling and carrying volume.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Cross-Body + Doorway Chest Stretch', detail: '30 sec each side — rear capsule and pec stretch after pressing and pulling.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Forearm Flexor + Extensor Stretch', detail: '30 sec each — arm straight, press palm down then up. After carries and curl work your forearms need this.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  legs: {
+    id: 'legs',
+    name: 'Leg Dominant',
+    icon: '🦵',
+    meta: '55 min · Mountain legs and posterior chain',
+    tag: 'Legs',
+    tagColor: 'badge-b',
+    libTag: 'eq-kb',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Hip and Ankle Mobilization', time: '6 min',
+        exercises: [
+          { name: 'KB Goblet Squat + Pause', detail: '2 × 10 — one 45 lb KB, 3-sec hold at bottom. Mobilizes hips and ankles before heavy loading.', equip: '45 lb KB', eqClass: 'eq-kb' },
+          { name: "World's Greatest Stretch", detail: '8 each side — lunge, elbow to floor, rotate overhead. Comprehensive lower body and spine prep.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Band Pull-Apart', detail: '2 × 15 — keep the upper back active even on a leg day.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Hip Circle + Leg Swing', detail: '10 each direction, each leg — joint prep before single-leg work.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Bulgarian Split Squat — 5 rounds', time: '15 min',
+        exercises: [
+          { name: 'KB Bulgarian Split Squat', detail: '10 each leg — KBs at sides or goblet, rear foot elevated. 5 rounds with 90 sec rest. Highest VM and hip flexor demand of any unilateral exercise. This is your mountain leg builder.', equip: 'KBs', eqClass: 'eq-kb', note: 'Research: Applied Sciences 2025 — ~85% MVC VMO' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Double KB Deadlift + Front Rack Squat', time: '12 min · 4 rounds',
+        exercises: [
+          { name: 'B1 — Double KB Deadlift', detail: '8 reps — both 45 lb KBs, full reset on floor each rep. Full dead stop reinforces hip hinge mechanics under real load.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Straight into B2' },
+          { name: 'B2 — Double KB Front Rack Squat', detail: '8 reps — both 45 lb KBs racked, elbows high, full depth. Upright torso demand transfers to kneeling and shooting positions on slope.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Rest 75 sec, repeat B1' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Single-Leg Posterior Chain', time: '10 min · 3 rounds',
+        exercises: [
+          { name: 'Single-Leg KB RDL', detail: '8 each side — 70 lb KB, slow and controlled. This is the single most important injury prevention movement for elk hunters. Trains eccentric hamstring and glute for steep descents.', equip: '70 lb KB', eqClass: 'eq-kb' },
+          { name: 'KB Suitcase Carry', detail: '50 ft each side — 70 lb KB. Lateral core under loaded gait. Rest 45 sec then repeat.', equip: '70 lb KB', eqClass: 'eq-kb', note: 'Rest 45 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Block D', badge: 'badge-d', title: 'Sandbag Squat + McGill Core', time: '8 min · 3 rounds',
+        exercises: [
+          { name: 'Sandbag Bear Hug Squat', detail: '6 reps — 160 lb bag bear hugged to chest. Shifting load forces core to work overtime. Completely different from barbell squats.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Once per 10–14 days max on heavy version' },
+          { name: 'Side Plank', detail: '3 × 10-sec holds each side — highest QL activation for lateral core stability on uneven terrain.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Rest 60 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: '70 lb KB Swings — 5 Min', time: '5 min',
+        exercises: [
+          { name: '70 lb KB Swings', detail: 'Every minute on the minute — 15 swings at the top of each minute for 5 min. Research-validated peak power load at ~87% HRmax. Pure posterior chain and conditioning.', equip: '70 lb KB', eqClass: 'eq-kb' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Hip + Leg Recovery', time: '4 min',
+        exercises: [
+          { name: 'Pigeon Pose', detail: '60 sec each side — deep hip flexor and glute stretch after BSS and heavy squatting.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: '90/90 Hip Stretch + Thoracic Rotation', detail: '45 sec each side — decompress the hips and lower back after all the loaded hinging and squatting.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Dead Hang', detail: '30 sec — spinal decompression even on a leg day.', equip: 'Pull Station', eqClass: 'eq-station' },
+        ]
+      },
+    ]
+  },
+
+  core: {
+    id: 'core',
+    name: 'Core Dominant',
+    icon: '🔩',
+    meta: '45 min · McGill-based, anti-motion, carry endurance',
+    tag: 'Core',
+    tagColor: 'badge-d',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Spine Activation', time: '5 min',
+        exercises: [
+          { name: 'Cat-Cow', detail: '10 slow reps — spinal mobility before any loaded core work.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Dead Bug', detail: '8 each side — opposite arm and leg. Low back pressed to floor. Neural prep for the McGill work ahead.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Band Pull-Apart', detail: '2 × 15 — upper back activation even in a core session.', equip: 'Bands', eqClass: 'eq-band' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'McGill Big-3 — Full Protocol', time: '12 min · 3 rounds',
+        exercises: [
+          { name: 'McGill Curl-Up', detail: '10-6-4 descending reps — one knee bent, hands under lumbar, head barely lifts. No spinal flexion load. Protects the disc while building anterior core endurance.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Research: Axler & McGill — 3,300 N compression from sit-ups vs minimal from curl-up' },
+          { name: 'Side Plank', detail: '3 × 10-sec holds each side — highest QL and oblique activation of any core exercise with minimal spinal compression. The anti-lateral flexion pattern.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Bird-Dog', detail: '8 each side, hold 8 sec — opposite arm and leg. Multifidus and erector under anti-extension load. The exact stability pattern of walking uphill under pack weight.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Rest 45 sec, repeat block' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Anti-Rotation Core', time: '10 min · 3 rounds',
+        exercises: [
+          { name: 'Pallof Press', detail: '10 each side — hook band at chest height on station, stand perpendicular, press straight out, hold 2 sec, resist rotation. Trains the stability to hold steady on uneven ground after a hard climb.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Renegade Row', detail: '6 each side — DBs on floor, plank position, row one while stabilizing with the other. Anti-rotation core plus upper back. Builds stability for odd-position shots in the field.', equip: 'Dumbbells', eqClass: 'eq-db', note: 'Rest 60 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Loaded Carry Core', time: '12 min · 4 rounds',
+        exercises: [
+          { name: 'Double KB Farmer Carry', detail: '50 ft — both 45 lb KBs. Core bracing under locomotion load. The carry is a plank that walks.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Straight into C2' },
+          { name: 'KB Suitcase Carry', detail: '50 ft each side — 70 lb KB, resist the lean. Lateral core demands exceed bilateral carry per total load.', equip: '70 lb KB', eqClass: 'eq-kb', note: 'Straight into C3' },
+          { name: 'Sandbag Bear Hug Walk', detail: '30 ft — 160 lb bag, squeeze, brace everything. Anterior core and grip endurance under maximum awkward load.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Rest 90 sec, repeat · 1× per 10 days max' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'KB Swings — Core Under Fatigue', time: '4 min',
+        exercises: [
+          { name: '70 lb KB Swings', detail: '15 reps every minute for 4 minutes. Core bracing under ballistic hip extension when everything is already pre-fatigued. This is what keeps your back safe on day 5.', equip: '70 lb KB', eqClass: 'eq-kb' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Spine Recovery', time: '3 min',
+        exercises: [
+          { name: 'Child\'s Pose', detail: '60 sec — full lumbar decompression after all the anti-extension and carry work.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Dead Hang', detail: '45 sec — spinal traction after loaded carries.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: '90/90 Hip Stretch', detail: '30 sec each side — open the hips after the carry work.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  push: {
+    id: 'push',
+    name: 'Push Focus',
+    icon: '🔼',
+    meta: '45 min · Chest, shoulders, triceps, carries',
+    tag: 'Push',
+    tagColor: 'badge-finisher',
+    libTag: 'eq-station',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Shoulder Prep', time: '5 min',
+        exercises: [
+          { name: 'Mace Halo', detail: '2 × 10 each direction — open the shoulder girdle before pressing volume.', equip: 'Mace', eqClass: 'eq-mace' },
+          { name: 'Band Pull-Apart — Diagonal Up', detail: '2 × 15 — rear delts and rotator cuff must be hot before pressing.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Push-Up to Down Dog', detail: '12 reps — chest, shoulders, lats all warmed through movement.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Weighted Dip + KB Overhead Press', time: '14 min · 4 rounds',
+        exercises: [
+          { name: 'A1 — Weighted Dip', detail: '8 reps — 45 lb KB. Limit to ~90° depth. Forward lean, full lockout. Best compound push movement on the station.', equip: 'Dip Station + KB', eqClass: 'eq-station', note: 'Straight into A2' },
+          { name: 'A2 — Single-Arm KB Overhead Press', detail: '8 each side — 45 lb KB, strict. Brace opposite oblique. Lock out overhead, 3-sec descent. Builds unilateral shoulder strength for pack stability.', equip: '45 lb KB', eqClass: 'eq-kb', note: 'Rest 75 sec, repeat A1' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Push-Up + Lateral Raise', time: '12 min · 4 rounds',
+        exercises: [
+          { name: 'B1 — Band Resisted Push-Up', detail: '15 reps — band across back, chest to floor, full lockout. Equivalent to bench press EMG when band matched to 6RM load.', equip: 'Bands', eqClass: 'eq-band', note: 'Straight into B2' },
+          { name: 'B2 — DB Lateral Raise — Slow Eccentric', detail: '12 reps — 3-sec lowering. Medial delt isolation. Pre-fatigued after the dips and presses, even light weight will build.', equip: 'Dumbbells', eqClass: 'eq-db', note: 'Rest 60 sec, repeat B1' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Tricep Circuit', time: '8 min · 3 rounds',
+        exercises: [
+          { name: 'Band Overhead Tricep Extension', detail: '15 reps — anchor band at foot, face away, both hands overhead, full extension. Long-head tricep emphasis.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'DB Skull Crusher', detail: '12 reps — floor, elbows pointed at ceiling, full range. Tricep mass for lockout strength.', equip: 'Dumbbells', eqClass: 'eq-db', note: 'Rest 60 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'Mace + Push-Up — 4 Min AMRAP', time: '4 min',
+        exercises: [
+          { name: 'Mace 10-to-2 Swings', detail: '10 reps — rotational shoulder power and endurance.', equip: 'Mace', eqClass: 'eq-mace' },
+          { name: 'Push-Up', detail: '10 reps — bodyweight, chest to floor. Cycle both for 4 min. Shoulders on fire by the end.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Chest + Shoulder Recovery', time: '3 min',
+        exercises: [
+          { name: 'Dead Hang', detail: '45 sec — anterior shoulder decompression after pressing volume.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Doorway Chest Stretch', detail: '30 sec each side — pec stretch after dips and push-ups.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Behind-Head Reach + Cross-Body', detail: '30 sec each side — posterior shoulder and lat stretch.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  pull: {
+    id: 'pull',
+    name: 'Pull Focus',
+    icon: '⬇️',
+    meta: '45 min · Back, biceps, rows, carries',
+    tag: 'Pull',
+    tagColor: 'badge-c',
+    libTag: 'eq-station',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Scapular and Lat Activation', time: '5 min',
+        exercises: [
+          { name: 'Dead Hang + Scapular Pulls', detail: '2 × 30 sec — retract shoulder blades without bending elbows. Full lat and upper back activation before pulling.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Band Face Pull', detail: '2 × 15 — rear delt and external rotator warm-up.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'KB Deadlift to High Pull', detail: '2 × 8 — one 45 lb KB, hinge and pull to chin. Prime the posterior chain and traps.', equip: '45 lb KB', eqClass: 'eq-kb' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Weighted Pull-Up — Volume', time: '15 min · 4 rounds',
+        exercises: [
+          { name: 'A1 — Weighted Pull-Up (Pronated)', detail: '5–6 reps — 45 lb KB. Dead hang, 3-sec descent. Best lat builder you have without a cable machine.', equip: 'Pull Station + KB', eqClass: 'eq-station', note: 'Straight into A2' },
+          { name: 'A2 — Inverted Row', detail: '12 reps — body straight, chest to bar, hold 1 sec. Horizontal pulling to complement vertical pull-ups. Mid-trap and rhomboid focus.', equip: 'Pull Station', eqClass: 'eq-station', note: 'Rest 75 sec, repeat A1' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'KB Row + Band Pull', time: '12 min · 4 rounds',
+        exercises: [
+          { name: 'B1 — Double KB Bent-Over Row', detail: '10 reps — both 45 lb KBs, elbows drive back, squeeze the scapula. Horizontal pulling volume for mid and lower traps.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Straight into B2' },
+          { name: 'B2 — Band Pull-Apart Extended Hold', detail: '12 reps, hold 3 sec at full stretch — rear delts and rotator cuff under endurance load. Shoulder health foundation.', equip: 'Bands', eqClass: 'eq-band', note: 'Rest 60 sec, repeat B1' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Bicep + Grip', time: '8 min · 3 rounds',
+        exercises: [
+          { name: 'DB Curl', detail: '12 reps — full range, squeeze at top, slow on the way down. Elbow flexor strength for pulling and carrying.', equip: 'Dumbbells', eqClass: 'eq-db' },
+          { name: 'Double KB Farmer Carry', detail: '50 ft — both 45 lb KBs. Grip and trap endurance under locomotion. The carry is never optional.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Rest 45 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'Chin-Ups + Swings — 4 Min AMRAP', time: '4 min',
+        exercises: [
+          { name: 'Chin-Up (Supinated)', detail: '5 reps — reverse grip, maximum bicep and lat co-activation. Dead hang each rep.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: '70 lb KB Swings', detail: '10 reps — posterior chain and conditioning. Cycle both for 4 min.', equip: '70 lb KB', eqClass: 'eq-kb' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Back + Bicep Recovery', time: '3 min',
+        exercises: [
+          { name: 'Dead Hang', detail: '60 sec — full lat and spine decompression after maximum pulling volume.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Cross-Body Shoulder + Lat Stretch', detail: '30 sec each side — open posterior shoulder and lat after heavy pulling.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Forearm Stretch', detail: '30 sec each — arm straight, press palm up then down. Forearms worked hard today.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  bagday: {
+    id: 'bagday',
+    name: 'Whole Bag Day',
+    icon: '💀',
+    meta: '40 min · 160 lb Rogue bag only — nothing else',
+    tag: 'Savage',
+    tagColor: 'badge-finisher',
+    libTag: 'eq-sb',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Spine and Hip Prep', time: '5 min',
+        exercises: [
+          { name: 'Cat-Cow', detail: '15 slow reps — decompress the spine before loading it with 160 lbs.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: "World's Greatest Stretch", detail: '6 each side — full body mobility prep.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Hip Hinge Groove', detail: '15 reps — bodyweight, exaggerated hinge, feel the hamstrings load. Pattern the hip hinge before loading it.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Sandbag Deadlift — Heavy Sets', time: '10 min · 5 sets',
+        exercises: [
+          { name: 'Sandbag Deadlift', detail: '5 reps per set, 5 sets — grab the bag however you can, drive the hips, stand tall. Reset fully between reps. The unstable load makes this significantly harder than 160 lbs on a barbell. Rest 90 sec between sets.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Research: EMG confirms sandbag deadlift core activation exceeds barbell at matched loads' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Clean to Shoulder + Carry — Circuit', time: '14 min · 4 rounds',
+        exercises: [
+          { name: 'B1 — Sandbag Clean to Shoulder', detail: '3 each side — from the floor, hip drive, pull high, load onto shoulder. The single most specific pack-out simulation. Reset between reps. This is lifting a bull elk quarter off the ground.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Straight into B2' },
+          { name: 'B2 — Sandbag Shoulder Carry', detail: '40 ft each shoulder — switch at the turnaround. After the clean your whole body is pre-fatigued. Walk controlled and braced.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Rest 90 sec, repeat B1' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Bear Hug Squat + Bear Hug Carry', time: '8 min · 3 rounds',
+        exercises: [
+          { name: 'C1 — Sandbag Bear Hug Squat', detail: '5 reps — squeeze the bag tight, squat to depth. The shifting load taxes core and upper back beyond any barbell squat.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Straight into C2' },
+          { name: 'C2 — Sandbag Bear Hug Carry', detail: '30 ft — brace everything, walk with intent. Set down, 10-sec breath, pick back up. Rest 90 sec then repeat.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Rest 90 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'Sandbag Slam + Drag — 4 Min', time: '4 min',
+        exercises: [
+          { name: 'Sandbag Slam', detail: '5 reps — pick it up, slam it down. Explosive full body power output. Reset after each.', equip: '160 lb Bag', eqClass: 'eq-sb' },
+          { name: 'Sandbag Drag', detail: '20 ft back and forth — grab an end and drag it toward you then flip sides. Total body drag. Cycle both for 4 min. You will be wrecked.', equip: '160 lb Bag', eqClass: 'eq-sb' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Mandatory Recovery', time: '5 min',
+        exercises: [
+          { name: 'Child\'s Pose', detail: '90 sec — lumbar decompression. Non-negotiable after this much spinal loading.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Dead Hang', detail: '60 sec — traction for the spine and shoulders.', equip: 'Pull Station', eqClass: 'eq-station' },
+          { name: 'Pigeon Pose', detail: '60 sec each side — hip flexors got worked. Open them up.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: '90/90 Hip Stretch', detail: '45 sec each side — full hip recovery. Do not skip the cool-down on bag day.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  zone2: {
+    id: 'zone2',
+    name: 'Zone 2 / Ruck',
+    icon: '🎒',
+    meta: 'Aerobic base + pack-out specificity',
+    tag: 'Cardio',
+    tagColor: 'badge-d',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'The Rule', badge: 'badge-warmup', title: 'Zone 2 Pace — How to Know', time: 'All session',
+        exercises: [
+          { name: 'Nasal Breathing Test', detail: 'If you cannot breathe through your nose the entire time, slow down. That is Zone 2. This pace feels almost too easy at first. That is correct.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Research: Knapik 2012 — 1.7 SD effect size for rucking, highest of any training modality' },
+          { name: 'Heart Rate Target', detail: 'Roughly 180 minus your age in BPM. If you have a watch, stay in this zone the whole session. This builds fat oxidation capacity that no gym session can replicate.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Terrain', detail: 'Hike on uneven ground whenever possible. Expose your ankles, knees, and balance system to off-trail movement. Beaten paths are for everyone else.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Ruck Load', badge: 'badge-a', title: 'Progressive Pack Weight', time: 'By phase',
+        exercises: [
+          { name: 'Phase 1 (Weeks 1–6)', detail: 'Weeks 1–2: 25 lb, 60–75 min. Weeks 3–4: 25–30 lb, 75–90 min. Week 5: 30 lb, 2 hrs. Week 6 deload: no pack, easy hike 60 min.', equip: 'Pack', eqClass: 'eq-bw' },
+          { name: 'Phase 2 (Weeks 7–13)', detail: 'Weeks 7–8: 35–40 lb, 2–3 hrs. Weeks 9–10: 40–45 lb, 3 hrs with vertical gain. Weeks 11–12: 50 lb, 3–4 hrs with loaded descents. Week 13 deload: light pack, 60 min.', equip: 'Pack', eqClass: 'eq-bw', note: 'Start including downhill — this is where hunters get hurt' },
+          { name: 'Phase 3 (Weeks 14–18)', detail: 'Weeks 14–16: 50 lb, 4–5 hrs with vertical. Weeks 17–18: 50 lb, back-to-back weekend days to simulate multi-day hunt demands.', equip: 'Pack', eqClass: 'eq-bw' },
+          { name: 'Phase 4 Taper (Weeks 19–21)', detail: 'Week 19: 40 lb, 2 hrs. Week 20: 35 lb, 90 min. Week 21 hunt week: easy walk only, no heavy pack.', equip: 'Pack', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Key Notes', badge: 'badge-b', title: 'What to Know', time: '',
+        exercises: [
+          { name: 'Boot Break-In', detail: 'Wear your actual hunting boots on every Zone 2 session starting week 1. Blisters and hotspots in the mountains end hunts. Break them in now.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Loaded Descents', detail: 'From week 11 onward, include intentional downhill sections under pack weight. Coming down under load is more damaging than going up and is the most common day-2 failure point.', equip: 'Pack', eqClass: 'eq-bw' },
+          { name: 'Altitude Prep', detail: 'If hunting above 8,000 ft, arrive 2+ days early at intermediate altitude. No amount of sea-level training fully prepares you. Let your body acclimatize.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Daily Walk', detail: 'Even 20–30 minutes of walking daily between sessions matters. Low-level movement builds aerobic base, manages fatigue, and keeps joints mobile.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+};
+
+// 21-WEEK SCHEDULE DATA
+const SCHEDULE = [
+  // PHASE 1 — Weeks 1-6
+  { week: 1, phase: 'Base Build', label: 'Establish the pattern', note: '25 lb ruck', days: ['fullbody','walk','zone2','upper','walk','zone2','rest'] },
+  { week: 2, phase: 'Base Build', label: 'Add ruck duration', note: '25 lb ruck', days: ['fullbody','walk','zone2','upper','walk','zone2','rest'] },
+  { week: 3, phase: 'Base Build', label: 'Third full body added', note: '30 lb ruck', days: ['fullbody','walk','zone2','fullbody','walk','zone2','rest'] },
+  { week: 4, phase: 'Base Build', label: 'Full load established', note: '30 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 5, phase: 'Base Build', label: 'Ruck weight climbs', note: '35 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 6, phase: 'DELOAD', label: 'Scheduled recovery — reduce volume 40%', note: 'Deload week', days: ['upper','walk','rest','fullbody','walk','zone2','rest'], deload: true },
+  // PHASE 2 — Weeks 7-13
+  { week: 7, phase: 'Strength Build', label: 'Back to full load', note: '35–40 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 8, phase: 'Strength Build', label: 'Ruck duration increasing', note: '40 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 9, phase: 'Strength Build', label: 'Add vertical gain to rucks', note: '40–45 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 10, phase: 'Strength Build', label: 'Peak ruck load phase begins', note: '45 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 11, phase: 'Strength Build', label: 'Add loaded descents', note: '45–50 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 12, phase: 'Strength Build', label: 'Heavy carries + bag day option', note: '50 lb ruck', days: ['fullbody','walk','bagday','fullbody','walk','zone2','zone2'] },
+  { week: 13, phase: 'DELOAD', label: 'Scheduled recovery before peak phase', note: 'Deload week', days: ['upper','walk','rest','fullbody','walk','zone2','rest'], deload: true },
+  // PHASE 3 — Weeks 14-18
+  { week: 14, phase: 'Hunt Specific', label: 'Ruck becomes priority', note: '50 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 15, phase: 'Hunt Specific', label: 'Long ruck day extended', note: '50 lb · 4–5 hrs', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
+  { week: 16, phase: 'Hunt Specific', label: 'Bag day replaces one full body', note: '50 lb ruck', days: ['fullbody','walk','bagday','upper','walk','zone2','zone2'] },
+  { week: 17, phase: 'Hunt Specific', label: 'Gym is maintenance — ruck is king', note: '50 lb · back-to-back', days: ['upper','walk','fullbody','walk','walk','zone2','zone2'] },
+  { week: 18, phase: 'Hunt Specific', label: 'Back-to-back ruck weekend', note: '50 lb · 2-day ruck', days: ['upper','walk','fullbody','walk','walk','zone2','zone2'] },
+  // PHASE 4 — Weeks 19-21
+  { week: 19, phase: 'Taper', label: 'Begin taper — reduce 30%, keep intensity', note: '40 lb ruck', days: ['fullbody','walk','upper','rest','walk','zone2','zone2'] },
+  { week: 20, phase: 'Taper', label: 'Deep taper — feel strong and fresh', note: '35 lb · 90 min', days: ['upper','walk','rest','fullbody','walk','zone2','rest'] },
+  { week: 21, phase: 'HUNT WEEK', label: 'Stay loose — do not add fatigue', note: '🦌 September', days: ['upper','walk','rest','rest','walk','hunt','hunt'], hunt: true },
+];
+
+const RUCK_DATA = [
+  { weeks: 'Weeks 1–2', spec: '25 lb · 60–75 min', detail: 'Establish the pattern. Wear your actual hunting boots starting now. Easy pace, nasal breathing only.' },
+  { weeks: 'Weeks 3–4', spec: '25–30 lb · 75–90 min', detail: 'Add 5 lb and 15 minutes. Find uneven terrain when possible. Your feet should be adapting.' },
+  { weeks: 'Week 5', spec: '30 lb · 2 hours', detail: 'First long ruck. If you feel good in the last 30 minutes, the weight is right. If you are struggling at minute 60, it is too heavy.' },
+  { weeks: 'Week 6', spec: 'Deload — no pack', detail: 'Easy 60-min hike with zero pack weight. Let the body absorb all the adaptation from the past 5 weeks.' },
+  { weeks: 'Weeks 7–8', spec: '35–40 lb · 2–3 hrs', detail: 'Significant jump in duration. This is where the aerobic base starts to build in earnest. Slow down if you lose nasal breathing.' },
+  { weeks: 'Weeks 9–10', spec: '40–45 lb · 3 hrs + vertical', detail: 'Add intentional elevation gain. Find hills. If you are in Missoula you have no excuses — the mountains are right there.' },
+  { weeks: 'Weeks 11–12', spec: '50 lb · 3–4 hrs with descents', detail: 'Critical: include loaded descents starting now. Coming downhill under 50 lbs is where hunters blow up their knees. Your quads need eccentric loading practice.' },
+  { weeks: 'Week 13', spec: 'Deload — light pack 60 min', detail: 'Recover fully. This deload is not optional. You are about to hit the hardest phase of the program.' },
+  { weeks: 'Weeks 14–16', spec: '50 lb · 4–5 hrs with vertical', detail: 'This is the peak training load. These long days are the most specific thing you can do for September performance. Nothing replaces this.' },
+  { weeks: 'Weeks 17–18', spec: '50 lb · back-to-back days', detail: 'Weekend ruck Saturday AND Sunday. This simulates consecutive hunt days under load. Day 2 always hurts more — now your body will know what that feels like.' },
+  { weeks: 'Week 19', spec: '40 lb · 2 hours', detail: 'Taper begins. Drop 10 lbs and 2–3 hours. You are not building fitness anymore — you are converting all that training into freshness.' },
+  { weeks: 'Week 20', spec: '35 lb · 90 min', detail: 'Short and easy. Keep the joints moving, maintain the aerobic stimulus without adding fatigue.' },
+  { weeks: 'Week 21', spec: 'Easy walk only — no pack', detail: 'Do not ruck during hunt week. Walk, stay loose, shoot your bow, and get your head right. The work is done.' },
+];
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let state = {
+  mode: 'guided',
+  completedDays: {}, // key: "w1-mon" etc
+  startDate: null,
+};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('huntprep_state');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state = { ...state, ...parsed };
+    }
+    if (!state.startDate) {
+      state.startDate = new Date().toISOString().split('T')[0];
+      saveState();
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  try { localStorage.setItem('huntprep_state', JSON.stringify(state)); } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════
+// COMPUTED
+// ═══════════════════════════════════════════════
+function getCurrentWeek() {
+  const start = new Date(state.startDate);
+  const now = new Date();
+  const diff = Math.floor((now - start) / (7 * 24 * 60 * 60 * 1000));
+  return Math.min(Math.max(diff + 1, 1), 21);
+}
+
+function getDaysToHunt() {
+  // 3rd week of September = ~Sep 15 of next/this year
+  const now = new Date();
+  let huntYear = now.getFullYear();
+  let huntDate = new Date(huntYear, 8, 15); // Sep 15
+  if (now > huntDate) huntDate = new Date(huntYear + 1, 8, 15);
+  return Math.max(0, Math.ceil((huntDate - now) / (24 * 60 * 60 * 1000)));
+}
+
+function getCompletedCount() {
+  return Object.values(state.completedDays).filter(v => v).length;
+}
+
+// ═══════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════
+const DAY_KEYS = ['mon','tue','wed','thu','fri','sat','sun'];
+const DAY_LABELS = ['M','T','W','T','F','S','S'];
+
+const DAY_TYPE_MAP = {
+  fullbody: { icon: '⚡', label: 'Full Body', dot: 'workout' },
+  upper: { icon: '💪', label: 'Upper Body', dot: 'workout' },
+  legs: { icon: '🦵', label: 'Legs', dot: 'workout' },
+  core: { icon: '🔩', label: 'Core', dot: 'workout' },
+  push: { icon: '🔼', label: 'Push', dot: 'workout' },
+  pull: { icon: '⬇️', label: 'Pull', dot: 'workout' },
+  bagday: { icon: '💀', label: 'Bag Day', dot: 'workout' },
+  zone2: { icon: '🎒', label: 'Zone 2/Ruck', dot: 'zone2' },
+  walk: { icon: '🚶', label: 'Daily Walk', dot: 'zone2' },
+  rest: { icon: '😴', label: 'Rest', dot: 'rest' },
+  hunt: { icon: '🦌', label: 'HUNT', dot: 'workout' },
+};
+
+function renderCountdown() {
+  const days = getDaysToHunt();
+  const weeks = Math.floor(days / 7);
+  const currentWeek = getCurrentWeek();
+  document.getElementById('weeks-left').textContent = weeks;
+  document.getElementById('days-left').textContent = days;
+  document.getElementById('current-week').textContent = currentWeek;
+}
+
+function renderGuidedWeeks() {
+  const currentWeek = getCurrentWeek();
+  const container = document.getElementById('weeks-list');
+  let html = '';
+  let lastPhase = '';
+
+  SCHEDULE.forEach(week => {
+    if (week.phase !== lastPhase) {
+      const phaseColor = week.deload ? '#6b3a8b' : week.hunt ? '#c8a84b' : week.phase === 'Taper' ? '#d4622a' : week.phase === 'Hunt Specific' ? '#8b2020' : '#4a7c3f';
+      html += `<div class="week-section-label" style="color:${phaseColor}">${week.phase}</div>`;
+      lastPhase = week.phase;
+    }
+
+    const isCurrent = week.week === currentWeek;
+    const completedThisWeek = week.days.filter((_, i) => state.completedDays[`w${week.week}-${DAY_KEYS[i]}`]).length;
+
+    html += `<div class="week-card ${isCurrent ? 'current' : ''}" onclick="openWeek(${week.week})">
+      <div class="week-card-header">
+        <span class="week-num-badge" style="${week.deload ? 'background:#6b3a8b' : week.hunt ? 'background:#c8a84b;color:#0f0f08' : ''}">WK ${week.week}</span>
+        <div class="week-info">
+          <div class="week-title-text">${week.label}</div>
+          <div class="week-meta">${week.note} · ${completedThisWeek}/${week.days.filter(d => d !== 'rest').length} done</div>
+        </div>
+      </div>
+      <div class="week-progress-row">
+        ${week.days.map((dayType, i) => {
+          const isDone = state.completedDays[`w${week.week}-${DAY_KEYS[i]}`];
+          const dtm = DAY_TYPE_MAP[dayType] || DAY_TYPE_MAP.rest;
+          const dotClass = isDone ? 'done' : dtm.dot;
+          return `<div class="day-dot ${dotClass}" title="${dtm.label}" onclick="event.stopPropagation(); quickToggle(${week.week}, '${DAY_KEYS[i]}', '${dayType}')">${isDone ? '✓' : DAY_LABELS[i]}</div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function renderFreestyle() {
+  const grid = document.getElementById('freestyle-grid');
+  const lib = document.getElementById('free-library');
+
+  grid.innerHTML = DAY_KEYS.map((day, i) => {
+    const key = `free-${day}`;
+    const done = state.completedDays[key];
+    const dayData = done ? (WORKOUTS[done] || null) : null;
+    return `<div class="fs-day ${done ? 'done' : ''}" onclick="openFreeDay('${day}')">
+      <div class="fs-day-label">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</div>
+      <div class="fs-day-icon">${done && dayData ? dayData.icon : (done ? '✓' : '○')}</div>
+      <div class="fs-day-name">${done && dayData ? dayData.name : done ? 'Done' : 'Tap'}</div>
+    </div>`;
+  }).join('');
+
+  lib.innerHTML = renderLibraryCards();
+}
+
+function renderLibraryCards() {
+  return Object.values(WORKOUTS).map(w => `
+    <div class="lib-card" onclick="openWorkout('${w.id}')">
+      <div class="lib-icon">${w.icon}</div>
+      <div class="lib-name">${w.name}</div>
+      <div class="lib-meta">${w.meta}</div>
+      <span class="lib-tag ${w.libTag}">${w.tag}</span>
+    </div>
+  `).join('');
+}
+
+function renderMainLibrary() {
+  document.getElementById('main-library').innerHTML = renderLibraryCards();
+}
+
+function renderRuck() {
+  const list = document.getElementById('ruck-list');
+  list.innerHTML = RUCK_DATA.map(r => `
+    <div class="ruck-card">
+      <div class="ruck-week-badge">${r.weeks}</div>
+      <div class="ruck-spec">${r.spec}</div>
+      <div class="ruck-detail">${r.detail}</div>
+    </div>
+  `).join('');
+}
+
+function renderStats() {
+  const completed = getCompletedCount();
+  const totalDays = getDaysToHunt();
+  const currentWeek = getCurrentWeek();
+  const weekData = SCHEDULE[currentWeek - 1];
+  const phaseName = weekData ? weekData.phase : 'Training';
+
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-num">${completed}</div>
+      <div class="stat-label">Sessions Done</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">${currentWeek}</div>
+      <div class="stat-label">Current Week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">${getDaysToHunt()}</div>
+      <div class="stat-label">Days to Hunt</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">${Math.round((currentWeek / 21) * 100)}%</div>
+      <div class="stat-label">Program Done</div>
+    </div>
+  `;
+
+  document.getElementById('phase-breakdown').innerHTML = `
+    <div class="phase-card-stat" style="border-color:rgba(74,124,63,0.4)">
+      <h3>Phase 1 · Base Build · Weeks 1–6</h3>
+      <p>Establish the pattern. 3 sessions per week, daily walks, 2 Zone 2 hikes. Ruck builds from 25 to 35 lb. Deload at week 6.</p>
+    </div>
+    <div class="phase-card-stat" style="border-color:rgba(200,168,75,0.4)">
+      <h3>Phase 2 · Strength Build · Weeks 7–13</h3>
+      <p>Full load. Ruck climbs from 35 to 50 lb. Add vertical gain and loaded descents in weeks 11–12. Bag day introduced. Deload at week 13.</p>
+    </div>
+    <div class="phase-card-stat" style="border-color:rgba(139,32,32,0.4)">
+      <h3>Phase 3 · Hunt Specific · Weeks 14–18</h3>
+      <p>Ruck is the priority. 4–5 hour rucks with elevation. Back-to-back weekend rucks in weeks 17–18 to simulate multi-day hunt demands.</p>
+    </div>
+    <div class="phase-card-stat" style="border-color:rgba(212,98,42,0.4)">
+      <h3>Phase 4 · Taper · Weeks 19–21</h3>
+      <p>Volume drops 30–60%. Keep intensity sharp. Arrive in September feeling like a coiled spring, not accumulated fatigue.</p>
+    </div>
+  `;
+
+  // Streak — last 21 days
+  const today = new Date();
+  let streakHtml = '';
+  for (let i = 20; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const key = `daily-${d.toISOString().split('T')[0]}`;
+    const done = state.completedDays[key];
+    const isToday = i === 0;
+    streakHtml += `<div class="streak-dot ${done ? 'done' : isToday ? 'today' : ''}" title="${d.toDateString()}"></div>`;
+  }
+  document.getElementById('streak-row').innerHTML = streakHtml;
+}
+
+// ═══════════════════════════════════════════════
+// WORKOUT DETAIL
+// ═══════════════════════════════════════════════
+let currentWorkoutId = null;
+let currentWorkoutContext = null;
+
+function openWorkout(workoutId, context) {
+  const w = WORKOUTS[workoutId];
+  if (!w) return;
+  currentWorkoutId = workoutId;
+  currentWorkoutContext = context || null;
+
+  document.getElementById('workout-screen-title').textContent = w.name;
+
+  const isDone = context ? state.completedDays[context] === workoutId : false;
+
+  let html = `
+    <div class="workout-hero">
+      <div class="workout-hero-icon">${w.icon}</div>
+      <div class="workout-hero-info">
+        <div class="workout-hero-name">${w.name}</div>
+        <div class="workout-hero-meta">${w.meta}</div>
+      </div>
+    </div>
+    <button class="done-btn ${isDone ? 'completed' : ''}" id="main-done-btn" onclick="toggleWorkoutDone()">
+      ${isDone ? '✓ Completed' : 'Mark Complete'}
+    </button>
+  `;
+
+  w.blocks.forEach(block => {
+    html += `
+      <div class="block-card">
+        <div class="block-header">
+          <span class="block-badge ${block.badge}">${block.label}</span>
+          <span class="block-title">${block.title}</span>
+          ${block.time ? `<span class="block-time">${block.time}</span>` : ''}
+        </div>
+        ${block.exercises.map(ex => `
+          <div class="ex-row">
+            <div class="ex-info">
+              <div class="ex-name">${ex.name}</div>
+              <div class="ex-detail">${ex.detail}</div>
+              ${ex.note ? `<div class="ex-note">${ex.note}</div>` : ''}
+            </div>
+            <span class="ex-equip ${ex.eqClass}">${ex.equip}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  });
+
+  document.getElementById('workout-content').innerHTML = html;
+  document.getElementById('workout-screen').style.display = 'flex';
+  document.getElementById('workout-screen').classList.add('active');
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('app').classList.remove('active');
+  window.scrollTo(0, 0);
+}
+
+function closeWorkout() {
+  document.getElementById('workout-screen').style.display = 'none';
+  document.getElementById('workout-screen').classList.remove('active');
+  document.getElementById('app').style.display = 'flex';
+  document.getElementById('app').classList.add('active');
+  currentWorkoutId = null;
+  currentWorkoutContext = null;
+  refreshCurrentTab();
+}
+
+function toggleWorkoutDone() {
+  if (!currentWorkoutId) return;
+
+  const key = currentWorkoutContext || `daily-${new Date().toISOString().split('T')[0]}`;
+  const isDone = state.completedDays[key] === currentWorkoutId;
+
+  if (isDone) {
+    delete state.completedDays[key];
+  } else {
+    state.completedDays[key] = currentWorkoutId;
+  }
+  saveState();
+
+  const btn = document.getElementById('main-done-btn');
+  if (btn) {
+    btn.textContent = isDone ? 'Mark Complete' : '✓ Completed';
+    btn.className = isDone ? 'done-btn' : 'done-btn completed';
+  }
+}
+
+// ═══════════════════════════════════════════════
+// WEEK DETAIL — opens sheet to pick a day
+// ═══════════════════════════════════════════════
+function openWeek(weekNum) {
+  const week = SCHEDULE[weekNum - 1];
+  if (!week) return;
+
+  const sheet = document.getElementById('day-sheet');
+  document.getElementById('sheet-title').textContent = `Week ${weekNum}`;
+  document.getElementById('sheet-sub').textContent = week.label;
+
+  let optHtml = '';
+  week.days.forEach((dayType, i) => {
+    const dayKey = DAY_KEYS[i];
+    const dayLabel = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i];
+    const dtm = DAY_TYPE_MAP[dayType] || DAY_TYPE_MAP.rest;
+    const contextKey = `w${weekNum}-${dayKey}`;
+    const isDone = !!state.completedDays[contextKey];
+
+    const w = WORKOUTS[dayType];
+
+    optHtml += `<div class="sheet-option" onclick="handleDayTap(${weekNum}, '${dayKey}', '${dayType}')">
+      <span class="sheet-opt-icon">${isDone ? '✅' : dtm.icon}</span>
+      <div class="sheet-opt-info">
+        <div class="sheet-opt-name">${dayLabel} — ${dtm.label}</div>
+        <div class="sheet-opt-meta">${isDone ? 'Completed ✓' : w ? w.meta : 'Rest or active recovery'}</div>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('sheet-options').innerHTML = optHtml;
+  sheet.classList.add('open');
+}
+
+function handleDayTap(weekNum, dayKey, dayType) {
+  closeSheet();
+  const contextKey = `w${weekNum}-${dayKey}`;
+
+  if (dayType === 'rest' || dayType === 'walk' || dayType === 'hunt') {
+    // Toggle done
+    if (state.completedDays[contextKey]) {
+      delete state.completedDays[contextKey];
+    } else {
+      state.completedDays[contextKey] = dayType;
+    }
+    saveState();
+    refreshCurrentTab();
+    return;
+  }
+
+  if (WORKOUTS[dayType]) {
+    openWorkout(dayType, contextKey);
+  } else {
+    openSubstituteSheet(weekNum, dayKey, dayType, contextKey);
+  }
+}
+
+function openSubstituteSheet(weekNum, dayKey, defaultType, contextKey) {
+  const sheet = document.getElementById('day-sheet');
+  const dayLabel = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][DAY_KEYS.indexOf(dayKey)];
+  document.getElementById('sheet-title').textContent = dayLabel;
+  document.getElementById('sheet-sub').textContent = 'Choose your session';
+
+  let optHtml = Object.values(WORKOUTS).map(w => `
+    <div class="sheet-option" onclick="closeSheet(); openWorkout('${w.id}', '${contextKey}')">
+      <span class="sheet-opt-icon">${w.icon}</span>
+      <div class="sheet-opt-info">
+        <div class="sheet-opt-name">${w.name}</div>
+        <div class="sheet-opt-meta">${w.meta}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('sheet-options').innerHTML = optHtml;
+  sheet.classList.add('open');
+}
+
+function quickToggle(weekNum, dayKey, dayType) {
+  const contextKey = `w${weekNum}-${dayKey}`;
+  if (state.completedDays[contextKey]) {
+    delete state.completedDays[contextKey];
+  } else {
+    state.completedDays[contextKey] = dayType;
+  }
+  saveState();
+  renderGuidedWeeks();
+}
+
+function openFreeDay(dayKey) {
+  const sheet = document.getElementById('day-sheet');
+  const dayLabel = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][DAY_KEYS.indexOf(dayKey)];
+  const contextKey = `free-${dayKey}`;
+
+  document.getElementById('sheet-title').textContent = dayLabel;
+  document.getElementById('sheet-sub').textContent = 'Choose your session or mark done';
+
+  let optHtml = Object.values(WORKOUTS).map(w => `
+    <div class="sheet-option" onclick="closeSheet(); openWorkout('${w.id}', '${contextKey}')">
+      <span class="sheet-opt-icon">${w.icon}</span>
+      <div class="sheet-opt-info">
+        <div class="sheet-opt-name">${w.name}</div>
+        <div class="sheet-opt-meta">${w.meta}</div>
+      </div>
+    </div>
+  `).join('');
+
+  const isDone = !!state.completedDays[contextKey];
+  optHtml += `<div class="sheet-option" onclick="closeSheet(); toggleFreeDayDone('${contextKey}')">
+    <span class="sheet-opt-icon">${isDone ? '○' : '✅'}</span>
+    <div class="sheet-opt-info">
+      <div class="sheet-opt-name">${isDone ? 'Mark Incomplete' : 'Mark as Rest/Done'}</div>
+      <div class="sheet-opt-meta">${isDone ? 'Remove completion' : 'Log this as a completed rest day or walk'}</div>
+    </div>
+  </div>`;
+
+  document.getElementById('sheet-options').innerHTML = optHtml;
+  sheet.classList.add('open');
+}
+
+function toggleFreeDayDone(contextKey) {
+  if (state.completedDays[contextKey]) {
+    delete state.completedDays[contextKey];
+  } else {
+    state.completedDays[contextKey] = 'rest';
+  }
+  saveState();
+  renderFreestyle();
+}
+
+function closeSheet(event) {
+  if (event && event.target !== document.getElementById('day-sheet')) return;
+  document.getElementById('day-sheet').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════
+let currentTab = 'schedule';
+
+function showTab(tab) {
+  currentTab = tab;
+  ['schedule','workouts','ruck','stats'].forEach(t => {
+    const el = document.getElementById(`tab-${t}`);
+    if (el) el.style.display = t === tab ? 'flex' : 'none';
+    const btn = document.getElementById(`nav-${t}`);
+    if (btn) btn.classList.toggle('active', t === tab);
+  });
+  if (tab === 'stats') renderStats();
+  if (tab === 'ruck') renderRuck();
+}
+
+function setMode(mode) {
+  state.mode = mode;
+  saveState();
+  document.getElementById('mode-guided').classList.toggle('active', mode === 'guided');
+  document.getElementById('mode-free').classList.toggle('active', mode === 'free');
+  document.getElementById('guided-view').style.display = mode === 'guided' ? 'block' : 'none';
+  document.getElementById('free-view').style.display = mode === 'free' ? 'block' : 'none';
+  if (mode === 'free') renderFreestyle();
+}
+
+function refreshCurrentTab() {
+  if (currentTab === 'schedule') {
+    if (state.mode === 'guided') renderGuidedWeeks();
+    else renderFreestyle();
+  } else if (currentTab === 'stats') {
+    renderStats();
+  }
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+function enterApp() {
+  document.getElementById('splash').classList.remove('active');
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('app').classList.add('active');
+  document.getElementById('app').style.display = 'flex';
+  init();
+}
+
+function init() {
+  loadState();
+  renderCountdown();
+  renderGuidedWeeks();
+  renderMainLibrary();
+
+  // Set mode
+  document.getElementById('mode-guided').classList.toggle('active', state.mode === 'guided');
+  document.getElementById('mode-free').classList.toggle('active', state.mode === 'free');
+  document.getElementById('guided-view').style.display = state.mode === 'guided' ? 'block' : 'none';
+  document.getElementById('free-view').style.display = state.mode === 'free' ? 'block' : 'none';
+
+  showTab('schedule');
+}
+
+// Handle back button
+window.addEventListener('popstate', () => {
+  if (document.getElementById('workout-screen').classList.contains('active')) {
+    closeWorkout();
+  }
+});
+</script>
+</body>
+</html>
