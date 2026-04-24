@@ -1,8 +1,8 @@
-const CACHE_NAME = 'huntprep-v1';
+const CACHE_NAME = 'huntprep-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
+  '/hunt-prep-app/',
+  '/hunt-prep-app/index.html',
+  '/hunt-prep-app/manifest.json',
 ];
 
 self.addEventListener('install', event => {
@@ -24,7 +24,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).catch(() => caches.match('/index.html'));
+      return cached || fetch(event.request).catch(() => caches.match('/hunt-prep-app/index.html'));
     })
   );
 });

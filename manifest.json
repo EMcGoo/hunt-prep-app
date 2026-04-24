@@ -2,32 +2,25 @@
   "name": "Hunt Prep — Elk Archery Training",
   "short_name": "Hunt Prep",
   "description": "21-week elk archery hunt preparation program with full workout library, progressive rucking guide, and session tracking.",
-  "start_url": "/",
+  "start_url": "/hunt-prep-app/",
+  "scope": "/hunt-prep-app/",
   "display": "standalone",
   "background_color": "#0f0f08",
   "theme_color": "#1a1a0e",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/hunt-prep-app/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "/hunt-prep-app/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["health", "fitness", "sports"],
-  "screenshots": [],
-  "shortcuts": [
-    {
-      "name": "Today's Workout",
-      "url": "/",
-      "description": "Jump to your scheduled workout"
-    }
-  ]
+  "categories": ["health", "fitness", "sports"]
 }
