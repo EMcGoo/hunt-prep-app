@@ -714,6 +714,145 @@ html, body {
   line-height: 1.6;
 }
 .research-note strong { color: #6a9ed8; }
+
+/* ── REST TIMER ── */
+.rest-timer-bar {
+  background: #1a1a0e;
+  border: 1px solid #2a2a18;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 10px 0 6px;
+}
+.rest-timer-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #6b8f5a;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.rest-timer-btns {
+  display: flex;
+  gap: 8px;
+}
+.rest-btn {
+  flex: 1;
+  background: #252510;
+  border: 1px solid #3a3a20;
+  color: #c8a84b;
+  border-radius: 7px;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.rest-btn:active { background: #3a3a20; }
+.rest-timer-display {
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+#rest-countdown {
+  font-size: 28px;
+  font-weight: 700;
+  color: #c8a84b;
+  letter-spacing: .05em;
+  font-variant-numeric: tabular-nums;
+}
+.rest-cancel {
+  background: #2a1a1a;
+  border: 1px solid #4a2020;
+  color: #c87060;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── SESSION NOTES ── */
+.session-notes-bar {
+  margin: 6px 0 10px;
+}
+.session-notes-input {
+  width: 100%;
+  background: #1a1a0e;
+  border: 1px solid #2a2a18;
+  border-radius: 10px;
+  color: #c8c8a0;
+  font-size: 13px;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 10px 12px;
+  resize: none;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+.session-notes-input:focus {
+  outline: none;
+  border-color: #4a6a3a;
+}
+.session-notes-input::placeholder { color: #484838; }
+
+/* ── WEEKLY RINGS / STREAK ── */
+.streak-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1a1a0e;
+  border: 1px solid #2a2a18;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+.streak-item {
+  flex: 1;
+  text-align: center;
+}
+.streak-ring {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 4px;
+  position: relative;
+}
+.streak-ring svg { transform: rotate(-90deg); }
+.streak-ring-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: #585840;
+  font-weight: 600;
+}
+.streak-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #a0a080;
+  text-align: center;
+}
+.streak-badge {
+  background: #252510;
+  border: 1px solid #3a3a20;
+  border-radius: 8px;
+  padding: 6px 10px;
+  text-align: center;
+  min-width: 52px;
+}
+.streak-badge-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: #c8a84b;
+  line-height: 1;
+}
+.streak-badge-label {
+  font-size: 9px;
+  color: #686840;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-top: 2px;
+}
 </style>
 </head>
 <body>
@@ -773,6 +912,47 @@ html, body {
       <div class="mode-toggle">
         <div class="mode-btn active" id="mode-guided" onclick="setMode('guided')">📋 Guided Program</div>
         <div class="mode-btn" id="mode-free" onclick="setMode('free')">🎯 Freestyle</div>
+      </div>
+
+      <!-- WEEKLY RINGS + STREAK -->
+      <div class="streak-bar" id="streak-bar">
+        <div class="streak-item">
+          <div class="streak-ring">
+            <svg width="44" height="44" viewBox="0 0 44 44">
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#1e2e18" stroke-width="4"/>
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#4a8a3a" stroke-width="4"
+                stroke-dasharray="113" id="ring-gym" stroke-dashoffset="113" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="streak-ring-label">Gym</div>
+          <div class="streak-num" id="ring-gym-label">0/0</div>
+        </div>
+        <div class="streak-item">
+          <div class="streak-ring">
+            <svg width="44" height="44" viewBox="0 0 44 44">
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#1e2020" stroke-width="4"/>
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#3a7a9a" stroke-width="4"
+                stroke-dasharray="113" id="ring-run" stroke-dashoffset="113" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="streak-ring-label">Runs</div>
+          <div class="streak-num" id="ring-run-label">0/0</div>
+        </div>
+        <div class="streak-item">
+          <div class="streak-ring">
+            <svg width="44" height="44" viewBox="0 0 44 44">
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#201e10" stroke-width="4"/>
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#8a7a2a" stroke-width="4"
+                stroke-dasharray="113" id="ring-walk" stroke-dashoffset="113" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="streak-ring-label">Rucks</div>
+          <div class="streak-num" id="ring-walk-label">0/0</div>
+        </div>
+        <div class="streak-badge">
+          <div class="streak-badge-num" id="streak-count">0</div>
+          <div class="streak-badge-label">Wk Streak</div>
+        </div>
       </div>
 
       <!-- GUIDED PROGRAM -->
@@ -1598,51 +1778,342 @@ const WORKOUTS = {
     ]
   },
 
+  archery: {
+    id: 'archery',
+    name: 'Archery Draw Session',
+    icon: '🏹',
+    meta: '45 min · Draw under fatigue · Rotator cuff + stability',
+    tag: 'Hunt Specific',
+    tagColor: 'badge-d',
+    libTag: 'eq-band',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Shoulder + Rotator Cuff Activation', time: '8 min',
+        exercises: [
+          { name: 'Band Pull-Apart — Diagonal Up', detail: '3 × 15 — palms up, diagonal direction. Activates upper, middle, and lower trap plus infraspinatus before any drawing work. Non-negotiable warm-up for this session.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'External Rotation — Elbow at Side', detail: '2 × 15 each side — light band, elbow at 90°, rotate out. Infraspinatus and teres minor. The muscles that hold your draw position.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Face Pull — High Elbow', detail: '2 × 15 — band at face height, pull to forehead, elbows above wrists. Rear delt and external rotator prime mover of the drawing arm.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Dead Hang', detail: '45 sec — full shoulder decompression. Opens the capsule before loaded drawing work.', equip: 'Pull Station', eqClass: 'eq-station' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Resistance Band Draw — Simulated Bow Pull', time: '12 min · 4 rounds',
+        exercises: [
+          { name: 'A1 — Band Draw Simulation', detail: '10 each side — anchor band at shoulder height, assume shooting stance, draw back to anchor point holding 2–3 sec. This is the exact movement pattern of drawing your bow — trains the specific muscles under load. Use a band that matches your draw weight.', equip: 'Bands', eqClass: 'eq-band', note: 'Hold 2–3 sec at anchor · Rest 30 sec between sides' },
+          { name: 'A2 — Single-Arm Row — Elbow High', detail: '10 each side — band or KB, row with elbow at 90° to shoulder (not tucked). This variation fires rear delt and rhomboid in the same arc as a high draw. Controlled 3-sec descent.', equip: 'Bands', eqClass: 'eq-band', note: 'Straight into next round of A1' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Anti-Rotation Core — Stability Under Draw', time: '10 min · 3 rounds',
+        exercises: [
+          { name: 'B1 — Pallof Press', detail: '10 each side — band or cable at belly height, hold at chest, press out and hold 2 sec, return. The core must resist rotation when drawing a bow on a steep sidehill. This trains exactly that. Stand perpendicular to anchor.', equip: 'Bands', eqClass: 'eq-band', note: 'The archery anti-rotation movement · Straight into B2' },
+          { name: 'B2 — Single-Arm Plank', detail: '20 sec each side — standard plank, lift one hand, hold. Oblique and QL anti-lateral demand. Trains the stability base your feet need on uneven ground at the shot.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Rest 45 sec, repeat round' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Draw Under Fatigue — The Field Condition', time: '10 min',
+        exercises: [
+          { name: 'C1 — Fatigue Generator: 20 KB Swings', detail: '20 swings at 53 lb — push your heart rate up. Elk are running. Your heart is pounding. The shot comes anyway. You need to be able to draw and hold while breathing hard.', equip: '53 lb KB', eqClass: 'eq-kb', note: 'Immediately into C2' },
+          { name: 'C2 — Band Draw Hold Under Fatigue', detail: 'Draw and hold anchor 10 sec × 3 reps each side — right after swings, while heart rate is elevated. This is the most specific elk archery training you can do. Your hands will want to shake. Hold it anyway.', equip: 'Bands', eqClass: 'eq-band', note: 'This is the whole point of this block · Rest 90 sec, repeat' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'Shoulder Health + Rotator Cuff', time: '5 min',
+        exercises: [
+          { name: 'Prone Y-T-W', detail: '10 of each — face down, arms in Y, T, and W shapes, lift off the floor. Lower trap, mid trap, and rhomboid. The archery shoulder health finisher. Bodyweight only.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Cross-Body Shoulder Stretch', detail: '45 sec each side — rear capsule decompression after drawing work. Every archery session ends here.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  mobility: {
+    id: 'mobility',
+    name: 'Mobility & Flexibility',
+    icon: '🧘',
+    meta: '35 min · Hip flexors, thoracic, ankles, hamstrings',
+    tag: 'Recovery',
+    tagColor: 'badge-cool',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Hip Flexor + Quad Complex', time: '10 min',
+        exercises: [
+          { name: 'Half-Kneeling Hip Flexor Stretch', detail: '90 sec each side — rear knee down, shift hips forward until front quad is vertical. The hip flexors are eccentrically loaded in every BSS, every steep step-up, and every long descent under pack. This is maintenance.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Couch Stretch', detail: '90 sec each side — rear foot elevated on couch or wall, front shin vertical. Deeper rectus femoris stretch than standing quad stretch. Critical before and after any leg session.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Pigeon Pose', detail: '90 sec each side — rear hip opener. Glutes and external rotators. The position you need for uneven footing on steep terrain.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Thoracic Spine Rotation', time: '8 min',
+        exercises: [
+          { name: 'Thoracic Rotation — Kneeling', detail: '10 each side — kneel, one hand behind head, rotate up and open. T-spine mobility is required for the twist at full draw and for looking back over your shoulder on steep ridges.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Thread the Needle', detail: '10 each side — all fours, thread one arm under your body, follow it with your eyes. Opens the thoracic facets bilaterally. Slow and deliberate.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Cat-Cow — 10 Deep Reps', detail: '10 reps — slow, deliberate, exhale to arch, inhale to round. Spinal segment mobility. Never skip this one.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Hamstring + Posterior Chain', time: '10 min',
+        exercises: [
+          { name: 'Standing Hamstring — Band or Strap', detail: '90 sec each side — supine, leg up, use band or strap to hold. Passive hamstring lengthening. Not aggressive — just long hold, relax into it.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Inchworm', detail: '8 slow reps — stand, hinge to floor, walk hands to push-up position, walk feet back up. Full posterior chain dynamic stretch. One of the best bang-for-your-buck movements in this program.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: "World's Greatest Stretch", detail: '8 each side — lunge, elbow to floor, rotate overhead. Hip flexors, adductors, t-spine, ankle. Everything at once. Do these slowly.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block D', badge: 'badge-d', title: 'Ankle Mobility', time: '7 min',
+        exercises: [
+          { name: 'Ankle Circles + Flexion', detail: '20 each direction — seated, circle the ankles, then toe-up/toe-down flexion. Ankle mobility is the first thing to fail on steep technical terrain. Work it every week.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Wall Ankle Stretch (Knee to Wall)', detail: '10 each side — stand close to wall, drive knee forward past toes while keeping heel down. The single best ankle dorsiflexion stretch for hiking performance.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Banded Ankle Mobilization', detail: '10 reps each side — band around ankle at heel, anchored low behind you, drive knee forward. Joint traction + mobilization combined. Feel the front of the ankle open.', equip: 'Bands', eqClass: 'eq-band' },
+        ]
+      },
+    ]
+  },
+
+  sprintday: {
+    id: 'sprintday',
+    name: 'Sprint / HIIT',
+    icon: '⚡',
+    meta: '30 min · Flat 100m sprints · Peak power + anaerobic capacity',
+    tag: 'Conditioning',
+    tagColor: 'badge-b',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Warm-up', badge: 'badge-warmup', title: 'Full Activation — 12 Min', time: '12 min',
+        exercises: [
+          { name: 'Easy Jog 8 Min', detail: '8 full minutes before any sprint. Sprinting cold is how hamstrings get torn. This is not negotiable.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'High Knees × 20, Butt Kicks × 20', detail: '2 sets — driving warm-up drills. Gets the hip flexors firing and primes the stride cycle.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Leg Swings — Front/Back + Side', detail: '10 each direction each leg — dynamic hip opener. Full range before any sprint.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: '2 Build-Up Strides', detail: '2 × 50m at 70% — not sprinting yet, just finding the stride. Easy, then medium effort.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Flat 100m Sprints', time: '10–12 min · 6–10 rounds',
+        exercises: [
+          { name: '100m Sprint at 90–95%', detail: 'Not 100% — controlled max effort. Drive the arms, knees high in the first 30m, stay relaxed through 60–100m. This is closing distance on a bull elk. The anaerobic system the rucks cannot train.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Start with 6 sprints week 1 · Add 1 per week up to 10 · Fully recover between' },
+          { name: '2 Min Walk Recovery', detail: 'Full 2 minutes. Walking only — no jogging between. You want full phosphocreatine replenishment for each sprint to stay at quality effort. If you jog recovery you are doing intervals, not sprints.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Full recovery = full quality effort' },
+        ]
+      },
+      {
+        label: 'Cool-down', badge: 'badge-cool', title: 'Mandatory Recovery', time: '8 min',
+        exercises: [
+          { name: 'Easy Walk 5 Min', detail: 'Heart rate fully down before stretching. Always.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Hamstring + Quad + Hip Flexor Stretch', detail: '60 sec each — sprinting loads these three hardest. If you skip this you will feel it tomorrow in the BSS and the rucks.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Calf Stretch + Achilles', detail: '60 sec each side — sprinting is brutal on the plantar fascia and Achilles. Take care of it.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+
+  stepups: {
+    id: 'stepups',
+    name: 'Loaded Step-Ups',
+    icon: '🪜',
+    meta: '20–60 min · MTI #1 hunt exercise · Pack + box height',
+    tag: 'Hunt Specific',
+    tagColor: 'badge-d',
+    libTag: 'eq-kb',
+    blocks: [
+      {
+        label: 'Setup', badge: 'badge-warmup', title: 'Box + Load Selection', time: '3 min',
+        exercises: [
+          { name: 'Box Height by Phase', detail: 'Phase 1 (Wks 1–6): 12-inch box. Phase 2 (Wks 7–12): 16-inch box. Phase 3+ (Wks 13–21): 18–20-inch box. A 20-inch box is roughly the step height on technical mountain terrain. Do not jump to the highest box before your knees are ready.', equip: 'Box / Step', eqClass: 'eq-bw' },
+          { name: 'Pack Load by Phase', detail: 'Phase 1: 15–25 lb. Phase 2: 25–40 lb. Phase 3: 40–50 lb. Peak: simulate packout at 60–80 lb for short durations (15–20 min). Use your actual hunting pack and boots from day one — your feet need the same adaptation as the rest of you.', equip: 'Backpack', eqClass: 'eq-kb', note: 'MTI: this single exercise more than doubles load-carriage performance gains' },
+          { name: 'Alternating Lead Foot', detail: 'Every step up, alternate which foot leads. Left, right, left, right. This is not optional — single-leg dominance under load causes asymmetric knee and hip stress. Alternate from the first rep.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Main Block', badge: 'badge-a', title: 'Continuous Step-Ups — Threshold Effort', time: '20–60 min',
+        exercises: [
+          { name: 'Continuous Alternating Step-Ups', detail: 'Phase 1: 20 min continuous. Phase 2: 30–40 min continuous. Phase 3: 45–60 min continuous. Pace is determined by nasal breathing — if you break nasal breathing, slow down or reduce box height. This is cardiovascular and muscular training simultaneously. Rob Shaul (MTI): "If you only have 20 minutes, throw on a 40 lb pack and do threshold step-ups. That is the best thing you can do for elk hunting."', equip: 'Backpack + Box', eqClass: 'eq-kb', note: 'Nasal breathing required · Alternate feet every rep' },
+          { name: 'Heart Rate Target', detail: 'Zone 2–3 boundary: you can speak in short sentences but not hold a long conversation. On longer sessions (45+ min) you should feel it in your quads and glutes, not just your lungs. If your lungs are the limiter, slow down. If your legs are the limiter, good — that is the point.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Incline Option', badge: 'badge-b', title: 'Treadmill or Hill Alternative', time: 'As above',
+        exercises: [
+          { name: 'Treadmill Incline Loaded Walk', detail: '10–15% grade, 3.0–3.5 mph, same pack load as box work. Use this when a box is not available. The hill treadmill under pack is the closest gym equivalent to step-ups. Most gyms have one.', equip: 'Backpack', eqClass: 'eq-kb', note: 'Alternative when no box available' },
+          { name: 'Outdoor Hill Option', detail: 'Find a hill with 200–400 ft of vertical gain. Load your pack and hike up at nasal-breathing pace. Walk down easy. Repeat for the prescribed duration. This is the most specific option and should replace gym step-ups whenever possible.', equip: 'Backpack', eqClass: 'eq-kb' },
+        ]
+      },
+      {
+        label: 'Cool-Down', badge: 'badge-cool', title: 'Quad + Calf Recovery', time: '5 min',
+        exercises: [
+          { name: 'Quad Stretch + Couch Stretch', detail: '60 sec each side. Step-ups load the quads concentrically. Without this, they will tighten overnight and your knee tracking will suffer next session.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Calf + Achilles Stretch', detail: '60 sec each side. Box-stepping loads the calf and Achilles repeatedly. This is where tendinopathy starts if you skip recovery.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  legblaster: {
+    id: 'legblaster',
+    name: 'Leg Blaster / Eccentric',
+    icon: '💥',
+    meta: '30 min · Downhill strength · Eccentric quad + MTI complex',
+    tag: 'Strength',
+    tagColor: 'badge-b',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Why This Exists', badge: 'badge-warmup', title: 'The Descent Problem', time: '0 min',
+        exercises: [
+          { name: 'MTI Warning — Do Not Skip', detail: 'Rob Shaul (MTI): "Without dedicated eccentric leg work, you will be crippled with soreness after the first big downhill." Descending under a 50 lb pack — whether on a ruck training day or packing out a bull — is the single highest-injury-risk movement in this program. This session is your insurance.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'MTI: eccentric leg work is non-negotiable for backcountry hunting prep' },
+        ]
+      },
+      {
+        label: 'Warm-Up', badge: 'badge-warmup', title: 'Leg Activation', time: '5 min',
+        exercises: [
+          { name: 'Bodyweight Squat × 20', detail: '20 reps, full depth, controlled. Joint prep before eccentric loading.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Leg Swing — Front/Back + Side', detail: '15 each direction each leg — dynamic hip opener before the complex.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Walking Lunge × 20', detail: '20 steps, controlled. Pre-activate the glutes and hip flexors.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'MTI Leg Blaster Complex', time: '15 min · 3–5 rounds',
+        exercises: [
+          { name: 'A1 — DB Lunge × 12 each leg', detail: '12 each side — DBs at sides, upright torso, full knee bend. Slow 3-count descent. The lunge is the foundational eccentric movement of this complex.', equip: 'Dumbbells', eqClass: 'eq-kb', note: 'Use same DBs throughout the complex — no rest between movements' },
+          { name: 'A2 — Jump Squat × 10', detail: '10 reps — bodyweight, full squat down, explosive jump, soft landing. Land through toe-ball-heel. This is the plyometric/power component. Your quads will be burning from the lunges.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Straight into A3' },
+          { name: 'A3 — Split Jump (Jump Lunge) × 10', detail: '10 reps (5 each side) — jump and switch legs in air. The highest-demand movement of the complex. Eccentric landing load on each rep.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Straight into A4' },
+          { name: 'A4 — Bodyweight Squat × 25', detail: '25 reps fast — flush the legs at the end of the complex. By rep 20 your quads will be screaming. That is the point. Rest 2 min, repeat round.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Rest 2 full minutes · Start at 3 rounds, build to 5' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Slow Step-Down — Eccentric Control', time: '8 min · 3 rounds',
+        exercises: [
+          { name: 'Slow Box Step-Down × 10 each leg', detail: '10 each side — stand on a 12–16 inch box, step one foot down to the floor using a 5-count eccentric (5 full seconds to lower). The standing leg does all the work. This is the most direct simulation of descending terrain under load. Do not hold the wall — balance is part of the exercise.', equip: 'Box / Step', eqClass: 'eq-bw', note: '5-sec eccentric · This is where elk hunters blow up their quads on day 2 of a hunt' },
+          { name: 'Nordic Hamstring Curl × 5', detail: '5 reps — kneel, anchor feet under something heavy, fall forward controlling with hamstrings. The gold-standard eccentric hamstring exercise. Start with 3–5 reps max — these are harder than they look. Hamstring injury prevention for downhill running and rucking.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Rest 90 sec, repeat round' },
+        ]
+      },
+      {
+        label: 'Cool-Down', badge: 'badge-cool', title: 'Essential After Eccentric Work', time: '7 min',
+        exercises: [
+          { name: 'Pigeon Pose', detail: '90 sec each side — glute and hip flexor recovery after the lunge complex. Do not skip this after leg blasters.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Couch Stretch', detail: '90 sec each side — deep quad/hip flexor release. The muscles hammered hardest in this session.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Ice Bath or Cold Water Option', detail: 'Eccentric work causes more DOMS than concentric. 10–15 min cold water immersion (50–60°F) reduces soreness significantly. Not required, but recommended the first few times you do this session.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Optional but highly recommended for the first 2–3 leg blaster sessions' },
+        ]
+      },
+    ]
+  },
+
+  balance: {
+    id: 'balance',
+    name: 'Balance & Proprioception',
+    icon: '⚖️',
+    meta: '20 min · Ankle sprain prevention · Alpine terrain prep',
+    tag: 'Recovery',
+    tagColor: 'badge-cool',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Why This Matters', badge: 'badge-warmup', title: 'The Terrain Problem', time: '0 min',
+        exercises: [
+          { name: 'The Research Case', detail: 'Wang et al. (2023, Clinical Rehabilitation, 17 studies): proprioceptive training reduces lateral ankle sprains by 41% (RR 0.59). In people with prior ankle sprains, it reduces re-injury by 51% (RR 0.49). A twisted ankle at mile 8 into elk country ends your hunt. This 20-minute session is the highest ROI injury prevention work in this program.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Research: Wang et al. 2023 — 41% ankle sprain reduction' },
+        ]
+      },
+      {
+        label: 'Block A', badge: 'badge-a', title: 'Single-Leg Stance Progression', time: '8 min',
+        exercises: [
+          { name: 'A1 — Single-Leg Stand, Eyes Open', detail: '45 sec each side — stand on one foot, knee slightly bent, focus on a fixed point. This is the baseline. If you cannot hold 45 sec without the other foot touching down, start here and work up before progressing.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'A2 — Single-Leg Stand, Eyes Closed', detail: '30 sec each side — same position, close your eyes. Proprioception (your body's self-sensing system) does all the work without visual input. This is the level that transfers to rocky/dark terrain. Expect to wobble significantly at first.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Near a wall first time — you will need it' },
+          { name: 'A3 — Single-Leg Stand on Folded Mat or Unstable Surface', detail: '30 sec each side — fold a yoga mat twice or use a balance pad. Unstable surface forces the ankle stabilizers to work maximally. Progress to doing this eyes-closed once eyes-open is solid.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Block B', badge: 'badge-b', title: 'Loaded Single-Leg Work', time: '8 min · 3 rounds',
+        exercises: [
+          { name: 'B1 — Single-Leg KB RDL, Slow', detail: '8 each side — 35–45 lb KB, 4-sec descent, 2-sec hold at bottom. The gold-standard hip hinge for single-leg stability and hamstring eccentric strength. Each rep trains the exact balance demand of stepping over a log or crossing a creek on one foot under a pack.', equip: 'KB', eqClass: 'eq-kb', note: 'Straight into B2' },
+          { name: 'B2 — Step-Up to Balance Hold', detail: '8 each side — step up onto a box, bring the trailing knee to 90° and hold for 3 sec at the top before stepping down. The balance hold at the top is the proprioception training component. The step-up is already in the program — this adds the stability demand.', equip: 'Box / Step', eqClass: 'eq-bw', note: 'Rest 60 sec, repeat round' },
+        ]
+      },
+      {
+        label: 'Block C', badge: 'badge-c', title: 'Ankle Stability Specific', time: '4 min',
+        exercises: [
+          { name: 'Lateral Band Walk — Toe-Up', detail: '20 each direction — band around ankles, toes pulled up (dorsiflexed), walk laterally. Toe-up position engages the tibialis anterior and peroneal muscles — the primary lateral ankle stabilizers. This is the most direct ankle sprain prevention exercise.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'Calf Raise to Single-Leg Balance', detail: '10 reps each side — double calf raise, then at the top, shift to one leg and hold for 3 sec. Eccentric calf + Achilles loading plus proprioceptive challenge at end-range plantar flexion. Both Achilles and ankle stabilizers in one movement.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+
 };
 
 // 21-WEEK SCHEDULE DATA
 const SCHEDULE = [
-  // PHASE 1 — Weeks 1-6
-  { week: 1, phase: 'Base Build', label: 'Establish the pattern', note: '25 lb ruck', days: ['fullbody','walk','zone2','upper','walk','zone2','rest'] },
-  { week: 2, phase: 'Base Build', label: 'Add ruck duration', note: '25 lb ruck', days: ['fullbody','walk','zone2','upper','walk','zone2','rest'] },
-  { week: 3, phase: 'Base Build', label: 'Third full body added', note: '30 lb ruck', days: ['fullbody','walk','zone2','fullbody','walk','zone2','rest'] },
-  { week: 4, phase: 'Base Build', label: 'Full load established', note: '30 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 5, phase: 'Base Build', label: 'Ruck weight climbs', note: '35 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 6, phase: 'DELOAD', label: 'Scheduled recovery — reduce volume 40%', note: 'Deload week', days: ['upper','walk','rest','fullbody','walk','zone2','rest'], deload: true },
-  // PHASE 2 — Weeks 7-13
-  { week: 7, phase: 'Strength Build', label: 'Back to full load', note: '35–40 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 8, phase: 'Strength Build', label: 'Ruck duration increasing', note: '40 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 9, phase: 'Strength Build', label: 'Add vertical gain to rucks', note: '40–45 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 10, phase: 'Strength Build', label: 'Peak ruck load phase begins', note: '45 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 11, phase: 'Strength Build', label: 'Add loaded descents', note: '45–50 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 12, phase: 'Strength Build', label: 'Heavy carries + bag day option', note: '50 lb ruck', days: ['fullbody','walk','bagday','fullbody','walk','zone2','zone2'] },
-  { week: 13, phase: 'DELOAD', label: 'Scheduled recovery before peak phase', note: 'Deload week', days: ['upper','walk','rest','fullbody','walk','zone2','rest'], deload: true },
-  // PHASE 3 — Weeks 14-18
-  { week: 14, phase: 'Hunt Specific', label: 'Ruck becomes priority', note: '50 lb ruck', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 15, phase: 'Hunt Specific', label: 'Long ruck day extended', note: '50 lb · 4–5 hrs', days: ['fullbody','walk','upper','fullbody','walk','zone2','zone2'] },
-  { week: 16, phase: 'Hunt Specific', label: 'Bag day replaces one full body', note: '50 lb ruck', days: ['fullbody','walk','bagday','upper','walk','zone2','zone2'] },
-  { week: 17, phase: 'Hunt Specific', label: 'Gym is maintenance — ruck is king', note: '50 lb · back-to-back', days: ['upper','walk','fullbody','walk','walk','zone2','zone2'] },
-  { week: 18, phase: 'Hunt Specific', label: 'Back-to-back ruck weekend', note: '50 lb · 2-day ruck', days: ['upper','walk','fullbody','walk','walk','zone2','zone2'] },
-  // PHASE 4 — Weeks 19-21
-  { week: 19, phase: 'Taper', label: 'Begin taper — reduce 30%, keep intensity', note: '40 lb ruck', days: ['fullbody','walk','upper','rest','walk','zone2','zone2'] },
-  { week: 20, phase: 'Taper', label: 'Deep taper — feel strong and fresh', note: '35 lb · 90 min', days: ['upper','walk','rest','fullbody','walk','zone2','rest'] },
-  { week: 21, phase: 'HUNT WEEK', label: 'Stay loose — do not add fatigue', note: '🦌 September', days: ['upper','walk','rest','rest','walk','hunt','hunt'], hunt: true },
+  // ── PHASE 1: BASE (Weeks 1–6) ─────────────────────────────────────────────
+  // MTI objective: build aerobic base, introduce step-up pattern, balance habit
+  // Step-ups start week 1 at low load — MTI's #1 hunt-specific exercise
+  { week: 1, phase: 'Base', label: 'Establish the pattern — step-ups begin', note: '25 lb pack · 12″ box',
+    days: ['fullbody','easyrun','stepups','upper','zone2','balance','rest'] },
+  { week: 2, phase: 'Base', label: 'Add legblaster — downhill prep starts now', note: '25 lb pack',
+    days: ['fullbody','easyrun','stepups','legblaster','zone2','balance','activerecovery'] },
+  { week: 3, phase: 'Base', label: 'Archery enters — shoot 2×/week from here', note: '30 lb pack',
+    days: ['fullbody','archery','stepups','upper','archery','zone2','rest'] },
+  { week: 4, phase: 'Base', label: 'Tempo run added — ruck load rises', note: '30 lb pack',
+    days: ['fullbody','temporun','stepups','legblaster','archery','zone2','mobility'] },
+  { week: 5, phase: 'Base', label: 'Cardio volume peak for phase — hold intensity', note: '35 lb pack',
+    days: ['fullbody','temporun','stepups','upper','archery','zone2','balance'] },
+  { week: 6, phase: 'DELOAD', label: 'Deload — absorb 5 weeks of work', note: 'Deload · no max effort', deload: true,
+    days: ['upper','easyrun','balance','rest','archery','zone2','rest'] },
+
+  // ── PHASE 2: BUILD (Weeks 7–12) ───────────────────────────────────────────
+  // MTI objective: increase step-up load, add intervals + hill sprints, archery 2×/week
+  { week: 7, phase: 'Build', label: 'Reload — heavier pack, interval run begins', note: '35–40 lb pack',
+    days: ['fullbody','intervalrun','stepups','legblaster','archery','zone2','balance'] },
+  { week: 8, phase: 'Build', label: 'Step-up duration climbs + archery under fatigue', note: '40 lb pack',
+    days: ['fullbody','temporun','stepups','upper','archery','zone2','balance'] },
+  { week: 9, phase: 'Build', label: 'Hill sprints — vertical power for steep terrain', note: '40–45 lb pack',
+    days: ['fullbody','hillsprints','stepups','legblaster','archery','zone2','mobility'] },
+  { week: 10, phase: 'Build', label: 'Peak strength load — bag day + conditioning', note: '45 lb pack',
+    days: ['fullbody','intervalrun','stepups','bagday','archery','zone2','balance'] },
+  { week: 11, phase: 'Build', label: 'Sprint day + loaded descents — eccentric peak', note: '45–50 lb pack',
+    days: ['fullbody','sprintday','stepups','legblaster','archery','zone2','mobility'] },
+  { week: 12, phase: 'DELOAD', label: 'Deload before hunt-specific phase', note: 'Deload · recover fully', deload: true,
+    days: ['upper','easyrun','balance','rest','archery','zone2','rest'] },
+
+  // ── PHASE 3: HUNT SPECIFIC (Weeks 13–17) ──────────────────────────────────
+  // MTI objective: long rucks, mini-events (ruck+shoot same day), step-ups maintained
+  { week: 13, phase: 'Hunt Specific', label: 'Long run + step-up combo week begins', note: '50 lb pack',
+    days: ['fullbody','longrun','stepups','upper','archery','zone2','balance'] },
+  { week: 14, phase: 'Hunt Specific', label: 'Mini-event Saturday: ruck then shoot', note: '50 lb · 4–5 hrs',
+    days: ['fullbody','intervalrun','stepups','legblaster','archery','conditioning','archery'] },
+  { week: 15, phase: 'Hunt Specific', label: 'Hill sprints + legblaster — peak downhill prep', note: '50 lb pack',
+    days: ['fullbody','hillsprints','stepups','legblaster','archery','zone2','balance'] },
+  { week: 16, phase: 'Hunt Specific', label: 'Back-to-back long rucks + archery', note: '50 lb · back-to-back',
+    days: ['upper','longrun','stepups','zone2','archery','zone2','archery'] },
+  { week: 17, phase: 'DELOAD', label: 'Partial deload — sharpen before taper', note: 'Deload · light loads', deload: true,
+    days: ['upper','easyrun','balance','rest','archery','zone2','rest'] },
+
+  // ── PHASE 4: TAPER (Weeks 18–21) ──────────────────────────────────────────
+  // MTI objective: convert fitness to freshness — no new stimulus, keep archery sharp
+  { week: 18, phase: 'Taper', label: 'Taper starts — volume drops 30%, intensity held', note: '40 lb pack',
+    days: ['fullbody','easyrun','stepups','rest','archery','zone2','mobility'] },
+  { week: 19, phase: 'Taper', label: 'Deep taper — legs feel alive and ready', note: '35 lb · 90 min',
+    days: ['upper','easyrun','balance','rest','archery','zone2','rest'] },
+  { week: 20, phase: 'Taper', label: 'Final tune-up — nothing heavy this week', note: '30 lb · 60 min easy',
+    days: ['upper','easyrun','rest','balance','archery','zone2','rest'] },
+  { week: 21, phase: 'HUNT WEEK', label: '🦌 Stay loose — the work is done', note: 'September · elk season', hunt: true,
+    days: ['upper','walk','rest','rest','archery','hunt','hunt'] },
 ];
 
 const RUCK_DATA = [
-  { weeks: 'Weeks 1–2', spec: '25 lb · 60–75 min', detail: 'Establish the pattern. Wear your actual hunting boots starting now. Easy pace, nasal breathing only.' },
-  { weeks: 'Weeks 3–4', spec: '25–30 lb · 75–90 min', detail: 'Add 5 lb and 15 minutes. Find uneven terrain when possible. Your feet should be adapting.' },
-  { weeks: 'Week 5', spec: '30 lb · 2 hours', detail: 'First long ruck. If you feel good in the last 30 minutes, the weight is right. If you are struggling at minute 60, it is too heavy.' },
-  { weeks: 'Week 6', spec: 'Deload — no pack', detail: 'Easy 60-min hike with zero pack weight. Let the body absorb all the adaptation from the past 5 weeks.' },
-  { weeks: 'Weeks 7–8', spec: '35–40 lb · 2–3 hrs', detail: 'Significant jump in duration. This is where the aerobic base starts to build in earnest. Slow down if you lose nasal breathing.' },
-  { weeks: 'Weeks 9–10', spec: '40–45 lb · 3 hrs + vertical', detail: 'Add intentional elevation gain. Find hills. If you are in Missoula you have no excuses — the mountains are right there.' },
-  { weeks: 'Weeks 11–12', spec: '50 lb · 3–4 hrs with descents', detail: 'Critical: include loaded descents starting now. Coming downhill under 50 lbs is where hunters blow up their knees. Your quads need eccentric loading practice.' },
-  { weeks: 'Week 13', spec: 'Deload — light pack 60 min', detail: 'Recover fully. This deload is not optional. You are about to hit the hardest phase of the program.' },
-  { weeks: 'Weeks 14–16', spec: '50 lb · 4–5 hrs with vertical', detail: 'This is the peak training load. These long days are the most specific thing you can do for September performance. Nothing replaces this.' },
-  { weeks: 'Weeks 17–18', spec: '50 lb · back-to-back days', detail: 'Weekend ruck Saturday AND Sunday. This simulates consecutive hunt days under load. Day 2 always hurts more — now your body will know what that feels like.' },
-  { weeks: 'Week 19', spec: '40 lb · 2 hours', detail: 'Taper begins. Drop 10 lbs and 2–3 hours. You are not building fitness anymore — you are converting all that training into freshness.' },
-  { weeks: 'Week 20', spec: '35 lb · 90 min', detail: 'Short and easy. Keep the joints moving, maintain the aerobic stimulus without adding fatigue.' },
-  { weeks: 'Week 21', spec: 'Easy walk only — no pack', detail: 'Do not ruck during hunt week. Walk, stay loose, shoot your bow, and get your head right. The work is done.' },
+  { weeks: 'Weeks 1–2', spec: '25 lb · 60–75 min', detail: 'Establish the pattern. Use your actual hunting boots now — your feet need 21 weeks to adapt. Easy pace, nasal breathing only. Step-ups with the pack start week 1.' },
+  { weeks: 'Weeks 3–4', spec: '25–30 lb · 75–90 min', detail: 'Add 5 lb and 15 minutes. Find uneven terrain. Your first archery sessions are also this week — the combination of ruck load and shoulder work is intentional.' },
+  { weeks: 'Week 5', spec: '30 lb · 2 hours', detail: 'First long ruck. If you feel strong in the last 30 minutes, the weight is right. If you are struggling at 60 minutes, it is too heavy.' },
+  { weeks: 'Week 6 (Deload)', spec: 'Light pack · easy 60 min', detail: 'Deload week — easy hike only, no max effort. Let the body absorb 5 weeks of adaptation. This rest is why week 7 will feel surprisingly strong.' },
+  { weeks: 'Weeks 7–9', spec: '35–45 lb · 2–3 hrs', detail: 'Build phase. Significant jump in duration. This is where aerobic base builds in earnest. Add intentional vertical — Missoula has no shortage of hills. Slow down before losing nasal breathing.' },
+  { weeks: 'Weeks 10–11', spec: '45–50 lb · 3–4 hrs with descents', detail: 'Critical phase: loaded descents start now. Downhill under 50 lbs is where hunters blow up their knees. Legblaster sessions are running parallel — the eccentric quad work here is specifically designed for this.' },
+  { weeks: 'Week 12 (Deload)', spec: 'Light pack · easy 60 min', detail: 'Second deload before the hardest phase. Do not skip this. Recovery is not weakness — it is when adaptation actually happens.' },
+  { weeks: 'Weeks 13–14', spec: '50 lb · 4–5 hrs with vertical', detail: 'Hunt Specific phase. Long rucks are the most specific hunt prep you can do. Week 14 Saturday is a mini-event: ruck, then shoot your bow. This simulates the actual hunt scenario.' },
+  { weeks: 'Weeks 15–16', spec: '50 lb · back-to-back days', detail: 'Weekend ruck Saturday AND Sunday. Consecutive hunt days under load. Day 2 always hurts more — now your body will recognize that feeling instead of being shocked by it.' },
+  { weeks: 'Week 17 (Deload)', spec: 'Light loads · partial deload', detail: 'Partial deload — step down to 70% volume. You are 4 weeks from September. The fitness is built. Everything from here is about feeling sharp.' },
+  { weeks: 'Weeks 18–19', spec: '35–40 lb · 60–90 min', detail: 'Taper phase. Drop pack weight and duration significantly. You are not building fitness anymore — you are converting all that work into freshness. Keep the intensity on short efforts.' },
+  { weeks: 'Week 20', spec: '30 lb · 60 min easy', detail: 'Final tune-up. One easy ruck to keep the legs moving. Nothing heavy. This week should feel almost too easy — that is exactly right.' },
+  { weeks: 'Week 21 (Hunt)', spec: 'Walk only — no pack', detail: 'Do not ruck during hunt week. Walk to stay loose, shoot your bow daily, and get your head right. The 20 weeks of work are in your legs now. Trust it.' },
 ];
 
 // ═══════════════════════════════════════════════
@@ -1651,6 +2122,7 @@ const RUCK_DATA = [
 let state = {
   mode: 'guided',
   completedDays: {}, // key: "w1-mon" etc
+  sessionNotes: {}, // key: contextKey, value: note string
   startDate: null,
 };
 
@@ -1695,6 +2167,36 @@ function getCompletedCount() {
   return Object.values(state.completedDays).filter(v => v).length;
 }
 
+function getStreak() {
+  // Count consecutive weeks with at least 4/non-rest days completed
+  let streak = 0;
+  for (let i = SCHEDULE.length - 1; i >= 0; i--) {
+    const week = SCHEDULE[i];
+    const nonRest = week.days.filter(d => d !== 'rest');
+    const done = nonRest.filter((_, j) => state.completedDays[`w${week.week}-${DAY_KEYS[j]}`]).length;
+    if (done >= Math.min(4, nonRest.length)) streak++;
+    else break;
+  }
+  return streak;
+}
+
+function getWeeklyStats() {
+  const currentWeek = getCurrentWeek();
+  const week = SCHEDULE[currentWeek - 1];
+  if (!week) return { gym: 0, runs: 0, walks: 0, total: 0, gymTotal: 0, runTotal: 0, walkTotal: 0 };
+  const gymTypes = ['fullbody','upper','legs','core','push','pull','bagday','archery','sprintday','conditioning','gripcarry','intervalrun','hillsprints','temporun'];
+  const runTypes = ['easyrun','temporun','intervalrun','longrun','hillsprints','sprintday'];
+  const walkTypes = ['walk','zone2','activerecovery','mobility'];
+  let gym = 0, runs = 0, walks = 0, gymTotal = 0, runTotal = 0, walkTotal = 0;
+  week.days.forEach((d, i) => {
+    const done = !!state.completedDays[`w${currentWeek}-${DAY_KEYS[i]}`];
+    if (gymTypes.includes(d)) { gymTotal++; if (done) gym++; }
+    else if (runTypes.includes(d)) { runTotal++; if (done) runs++; }
+    else if (walkTypes.includes(d)) { walkTotal++; if (done) walks++; }
+  });
+  return { gym, runs, walks, gymTotal, runTotal, walkTotal };
+}
+
 // ═══════════════════════════════════════════════
 // RENDER
 // ═══════════════════════════════════════════════
@@ -1717,6 +2219,12 @@ const DAY_TYPE_MAP = {
   activerecovery: { icon: '🧘', label: 'Active Recovery', dot: 'rest' },
   gripcarry: { icon: '🤝', label: 'Grip & Carry', dot: 'workout' },
   conditioning: { icon: '🔥', label: 'Conditioning', dot: 'workout' },
+  archery: { icon: '🏹', label: 'Archery Draw', dot: 'workout' },
+  mobility: { icon: '🧘', label: 'Mobility', dot: 'rest' },
+  sprintday: { icon: '⚡', label: 'Sprints', dot: 'workout' },
+  stepups: { icon: '🪜', label: 'Step-Ups', dot: 'workout' },
+  legblaster: { icon: '💥', label: 'Leg Blaster', dot: 'workout' },
+  balance: { icon: '⚖️', label: 'Balance', dot: 'rest' },
   zone2: { icon: '🎒', label: 'Zone 2/Ruck', dot: 'zone2' },
   walk: { icon: '🚶', label: 'Daily Walk', dot: 'zone2' },
   rest: { icon: '😴', label: 'Rest', dot: 'rest' },
@@ -1730,6 +2238,26 @@ function renderCountdown() {
   document.getElementById('weeks-left').textContent = weeks;
   document.getElementById('days-left').textContent = days;
   document.getElementById('current-week').textContent = currentWeek;
+
+  // Update weekly rings
+  const stats = getWeeklyStats();
+  const circ = 113; // 2*pi*18
+  function setRing(id, done, total) {
+    const offset = total > 0 ? circ * (1 - done / total) : circ;
+    const el = document.getElementById(id);
+    if (el) el.style.strokeDashoffset = offset;
+  }
+  setRing('ring-gym', stats.gym, stats.gymTotal);
+  setRing('ring-run', stats.runs, stats.runTotal);
+  setRing('ring-walk', stats.walks, stats.walkTotal);
+  const gymLbl = document.getElementById('ring-gym-label');
+  const runLbl = document.getElementById('ring-run-label');
+  const walkLbl = document.getElementById('ring-walk-label');
+  if (gymLbl) gymLbl.textContent = `${stats.gym}/${stats.gymTotal}`;
+  if (runLbl) runLbl.textContent = `${stats.runs}/${stats.runTotal}`;
+  if (walkLbl) walkLbl.textContent = `${stats.walks}/${stats.walkTotal}`;
+  const sc = document.getElementById('streak-count');
+  if (sc) sc.textContent = getStreak();
 }
 
 function renderGuidedWeeks() {
@@ -1900,6 +2428,22 @@ function openWorkout(workoutId, context) {
     <button class="done-btn ${isDone ? 'completed' : ''}" id="main-done-btn" onclick="toggleWorkoutDone()">
       ${isDone ? '✓ Completed' : 'Mark Complete'}
     </button>
+    <div class="rest-timer-bar" id="rest-timer-bar">
+      <div class="rest-timer-label">Rest Timer</div>
+      <div class="rest-timer-btns">
+        <button class="rest-btn" onclick="startRestTimer(60)">1:00</button>
+        <button class="rest-btn" onclick="startRestTimer(90)">1:30</button>
+        <button class="rest-btn" onclick="startRestTimer(120)">2:00</button>
+        <button class="rest-btn" onclick="startRestTimer(180)">3:00</button>
+      </div>
+      <div class="rest-timer-display" id="rest-display" style="display:none">
+        <span id="rest-countdown">0:00</span>
+        <button class="rest-cancel" onclick="cancelRestTimer()">✕</button>
+      </div>
+    </div>
+    <div class="session-notes-bar">
+      <textarea class="session-notes-input" id="session-notes-input" placeholder="Session notes (weight, reps, conditions...)" rows="2">${context && state.sessionNotes[context] ? state.sessionNotes[context] : ''}</textarea>
+    </div>
   `;
 
   w.blocks.forEach(block => {
@@ -1930,6 +2474,15 @@ function openWorkout(workoutId, context) {
   document.getElementById('app').style.display = 'none';
   document.getElementById('app').classList.remove('active');
   window.scrollTo(0, 0);
+
+  // Wire up session notes autosave
+  const notesInput = document.getElementById('session-notes-input');
+  if (notesInput) {
+    notesInput.addEventListener('input', saveSessionNote);
+    notesInput.addEventListener('blur', saveSessionNote);
+  }
+  // Cancel any running rest timer when opening new workout
+  cancelRestTimer();
 }
 
 function closeWorkout() {
@@ -1960,6 +2513,60 @@ function toggleWorkoutDone() {
     btn.textContent = isDone ? 'Mark Complete' : '✓ Completed';
     btn.className = isDone ? 'done-btn' : 'done-btn completed';
   }
+}
+
+// ═══════════════════════════════════════════════
+// REST TIMER
+// ═══════════════════════════════════════════════
+let restTimerInterval = null;
+let restTimerEnd = null;
+
+function startRestTimer(seconds) {
+  if (restTimerInterval) clearInterval(restTimerInterval);
+  restTimerEnd = Date.now() + seconds * 1000;
+  document.getElementById('rest-display').style.display = 'flex';
+  document.querySelectorAll('.rest-timer-btns').forEach(el => el.style.display = 'none');
+  updateRestDisplay();
+  restTimerInterval = setInterval(() => {
+    const remaining = Math.ceil((restTimerEnd - Date.now()) / 1000);
+    if (remaining <= 0) {
+      cancelRestTimer();
+      // Vibrate if supported
+      try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch(e) {}
+      return;
+    }
+    updateRestDisplay();
+  }, 250);
+}
+
+function updateRestDisplay() {
+  const remaining = Math.max(0, Math.ceil((restTimerEnd - Date.now()) / 1000));
+  const mins = Math.floor(remaining / 60);
+  const secs = remaining % 60;
+  const el = document.getElementById('rest-countdown');
+  if (el) el.textContent = `${mins}:${secs.toString().padStart(2,'0')}`;
+}
+
+function cancelRestTimer() {
+  if (restTimerInterval) { clearInterval(restTimerInterval); restTimerInterval = null; }
+  const disp = document.getElementById('rest-display');
+  const btns = document.querySelector('.rest-timer-btns');
+  if (disp) disp.style.display = 'none';
+  if (btns) btns.style.display = 'flex';
+}
+
+// ═══════════════════════════════════════════════
+// SESSION NOTES — auto-save on input
+// ═══════════════════════════════════════════════
+function saveSessionNote() {
+  const input = document.getElementById('session-notes-input');
+  if (!input || !currentWorkoutContext) return;
+  if (input.value.trim()) {
+    state.sessionNotes[currentWorkoutContext] = input.value.trim();
+  } else {
+    delete state.sessionNotes[currentWorkoutContext];
+  }
+  saveState();
 }
 
 // ═══════════════════════════════════════════════
