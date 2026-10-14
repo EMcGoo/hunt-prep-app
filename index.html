@@ -774,28 +774,186 @@ html, body {
   justify-content: center;
 }
 
-/* ── SESSION NOTES ── */
-.session-notes-bar {
-  margin: 6px 0 10px;
+/* ── SESSION LOGGING ── */
+.log-panel {
+  background: #161610;
+  border: 1px solid #2a2a18;
+  border-radius: 12px;
+  margin: 8px 0 12px;
+  overflow: hidden;
 }
+.log-section {
+  padding: 12px 14px;
+  border-bottom: 1px solid #222218;
+}
+.log-section:last-child { border-bottom: none; }
+.log-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #686850;
+  margin-bottom: 10px;
+}
+
+/* Readiness tap */
+.readiness-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.readiness-btn {
+  flex: 1;
+  background: #1e1e12;
+  border: 1px solid #2a2a18;
+  border-radius: 8px;
+  color: #888870;
+  font-size: 13px;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 9px 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: 1;
+}
+.readiness-btn .r-num { font-size: 17px; font-weight: 700; }
+.readiness-btn .r-label { font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; }
+.readiness-btn.active-1 { background: #3a1a1a; border-color: #8a2a2a; color: #e06060; }
+.readiness-btn.active-2 { background: #2a1e10; border-color: #7a4a18; color: #d08040; }
+.readiness-btn.active-3 { background: #1e2010; border-color: #5a6020; color: #b0b840; }
+.readiness-btn.active-4 { background: #182018; border-color: #3a6a2a; color: #70c050; }
+.readiness-btn.active-5 { background: #142414; border-color: #2a7a1a; color: #50e030; }
+
+/* RIR / CR-10 inputs */
+.log-fields { display: flex; flex-direction: column; gap: 8px; }
+.log-field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.log-field-label {
+  flex: 1;
+  font-size: 12px;
+  color: #888870;
+}
+.log-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #1e1e12;
+  border: 1px solid #2a2a18;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.log-stepper button {
+  background: none;
+  border: none;
+  color: #888870;
+  font-size: 17px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1;
+}
+.log-stepper button:active { background: #2a2a18; }
+.log-stepper-val {
+  min-width: 36px;
+  text-align: center;
+  color: #c8c8a0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Archery tally */
+.archery-tally {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.tally-box {
+  background: #1e1e12;
+  border: 1px solid #2a2a18;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.tally-box-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #686850; }
+.tally-box-row { display: flex; align-items: center; gap: 8px; }
+.tally-val { font-size: 22px; font-weight: 700; color: #c8c8a0; min-width: 36px; text-align: center; font-family: 'Space Grotesk', sans-serif; }
+.tally-btn { background: #2a2a18; border: none; border-radius: 6px; color: #c8c8a0; font-size: 18px; padding: 4px 10px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; }
+.tally-accuracy {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #888870;
+  text-align: center;
+}
+.tally-accuracy span { color: #70c050; font-weight: 700; }
+
+/* Session notes (kept) */
+.session-notes-bar { margin: 0; }
 .session-notes-input {
   width: 100%;
   background: #1a1a0e;
   border: 1px solid #2a2a18;
-  border-radius: 10px;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
   color: #c8c8a0;
   font-size: 13px;
   font-family: 'Space Grotesk', sans-serif;
-  padding: 10px 12px;
+  padding: 10px 14px;
   resize: none;
   box-sizing: border-box;
   line-height: 1.5;
 }
-.session-notes-input:focus {
-  outline: none;
-  border-color: #4a6a3a;
-}
+.session-notes-input:focus { outline: none; border-color: #4a6a3a; }
 .session-notes-input::placeholder { color: #484838; }
+
+/* Log history on home */
+.log-history-bar {
+  margin-bottom: 12px;
+}
+.log-history-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #686850;
+  margin-bottom: 8px;
+}
+.log-history-list { display: flex; flex-direction: column; gap: 6px; }
+.log-history-item {
+  background: #1a1a0e;
+  border: 1px solid #2a2a18;
+  border-radius: 8px;
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.log-history-icon { font-size: 18px; width: 26px; text-align: center; flex-shrink: 0; }
+.log-history-info { flex: 1; min-width: 0; }
+.log-history-name { font-size: 13px; color: #c8c8a0; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.log-history-meta { font-size: 11px; color: #686850; margin-top: 1px; }
+.log-history-readiness {
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+.log-history-readiness.r1 { color: #e06060; }
+.log-history-readiness.r2 { color: #d08040; }
+.log-history-readiness.r3 { color: #b0b840; }
+.log-history-readiness.r4 { color: #70c050; }
+.log-history-readiness.r5 { color: #50e030; }
 
 /* ── WEEKLY RINGS / STREAK ── */
 .streak-bar {
@@ -954,6 +1112,9 @@ html, body {
           <div class="streak-badge-label">Wk Streak</div>
         </div>
       </div>
+
+      <!-- SESSION HISTORY -->
+      <div id="session-history"></div>
 
       <!-- GUIDED PROGRAM -->
       <div id="guided-view">
@@ -2123,6 +2284,7 @@ let state = {
   mode: 'guided',
   completedDays: {}, // key: "w1-mon" etc
   sessionNotes: {}, // key: contextKey, value: note string
+  sessionLogs: {},  // key: contextKey, value: { readiness, rir, rpe, arrows, hits, note, ts }
   startDate: null,
 };
 
@@ -2417,6 +2579,97 @@ function openWorkout(workoutId, context) {
 
   const isDone = context ? state.completedDays[context] === workoutId : false;
 
+  // Determine workout category for log panel type
+  const LOG_TYPE = (() => {
+    if (['archery'].includes(workoutId)) return 'archery';
+    if (['easyrun','temporun','intervalrun','longrun','hillsprints','sprintday','zone2'].includes(workoutId)) return 'endurance';
+    if (['stepups','legblaster'].includes(workoutId)) return 'strength-cardio';
+    return 'strength';
+  })();
+
+  const existingLog = (context && state.sessionLogs[context]) ? state.sessionLogs[context] : {};
+  const savedReadiness = existingLog.readiness || 0;
+  const savedRir = existingLog.rir !== undefined ? existingLog.rir : 2;
+  const savedRpe = existingLog.rpe !== undefined ? existingLog.rpe : 5;
+  const savedArrows = existingLog.arrows !== undefined ? existingLog.arrows : 0;
+  const savedHits = existingLog.hits !== undefined ? existingLog.hits : 0;
+  const savedNote = (context && state.sessionNotes[context]) ? state.sessionNotes[context] : '';
+
+  const READINESS_LABELS = ['','Dead','Low','OK','Good','Best'];
+
+  const readinessHTML = `
+    <div class="log-section">
+      <div class="log-section-title">How do you feel today?</div>
+      <div class="readiness-row" id="readiness-row">
+        ${[1,2,3,4,5].map(n => `
+          <button class="readiness-btn ${savedReadiness===n ? 'active-'+n : ''}"
+            onclick="setReadiness(${n})" id="r-btn-${n}">
+            <span class="r-num">${n}</span>
+            <span class="r-label">${READINESS_LABELS[n]}</span>
+          </button>`).join('')}
+      </div>
+    </div>`;
+
+  const strengthHTML = `
+    <div class="log-section">
+      <div class="log-section-title">Reps in Reserve (RIR) — How close to failure?</div>
+      <div class="log-fields">
+        <div class="log-field-row">
+          <div class="log-field-label">RIR this session <span style="color:#484838">(0=max effort · 3=easy)</span></div>
+          <div class="log-stepper">
+            <button onclick="stepLog('rir',-1)">−</button>
+            <span class="log-stepper-val" id="rir-val">${savedRir}</span>
+            <button onclick="stepLog('rir',1)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const enduranceHTML = `
+    <div class="log-section">
+      <div class="log-section-title">Effort — CR-10 RPE Scale</div>
+      <div class="log-fields">
+        <div class="log-field-row">
+          <div class="log-field-label">RPE <span style="color:#484838">(1=very easy · 10=max)</span></div>
+          <div class="log-stepper">
+            <button onclick="stepLog('rpe',-1)">−</button>
+            <span class="log-stepper-val" id="rpe-val">${savedRpe}</span>
+            <button onclick="stepLog('rpe',1)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const archeryHTML = `
+    <div class="log-section">
+      <div class="log-section-title">Shot Tally</div>
+      <div class="archery-tally">
+        <div class="tally-box">
+          <div class="tally-box-label">Arrows Shot</div>
+          <div class="tally-box-row">
+            <button class="tally-btn" onclick="stepTally('arrows',-1)">−</button>
+            <div class="tally-val" id="arrows-val">${savedArrows}</div>
+            <button class="tally-btn" onclick="stepTally('arrows',1)">+</button>
+          </div>
+        </div>
+        <div class="tally-box">
+          <div class="tally-box-label">Hits (on target)</div>
+          <div class="tally-box-row">
+            <button class="tally-btn" onclick="stepTally('hits',-1)">−</button>
+            <div class="tally-val" id="hits-val">${savedHits}</div>
+            <button class="tally-btn" onclick="stepTally('hits',1)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="tally-accuracy" id="tally-accuracy">
+        ${savedArrows > 0 ? `Accuracy: <span>${Math.round(Math.min(savedHits,savedArrows)/savedArrows*100)}%</span>` : 'Log your shots above'}
+      </div>
+    </div>`;
+
+  const metricSection = LOG_TYPE === 'archery' ? archeryHTML :
+                        LOG_TYPE === 'endurance' ? enduranceHTML :
+                        strengthHTML; // strength + strength-cardio both get RIR
+
   let html = `
     <div class="workout-hero">
       <div class="workout-hero-icon">${w.icon}</div>
@@ -2428,6 +2681,15 @@ function openWorkout(workoutId, context) {
     <button class="done-btn ${isDone ? 'completed' : ''}" id="main-done-btn" onclick="toggleWorkoutDone()">
       ${isDone ? '✓ Completed' : 'Mark Complete'}
     </button>
+    <div class="log-panel">
+      ${readinessHTML}
+      ${metricSection}
+      <div class="session-notes-bar">
+        <textarea class="session-notes-input" id="session-notes-input"
+          placeholder="Notes — weight used, conditions, how it felt..."
+          rows="2">${savedNote}</textarea>
+      </div>
+    </div>
     <div class="rest-timer-bar" id="rest-timer-bar">
       <div class="rest-timer-label">Rest Timer</div>
       <div class="rest-timer-btns">
@@ -2440,9 +2702,6 @@ function openWorkout(workoutId, context) {
         <span id="rest-countdown">0:00</span>
         <button class="rest-cancel" onclick="cancelRestTimer()">✕</button>
       </div>
-    </div>
-    <div class="session-notes-bar">
-      <textarea class="session-notes-input" id="session-notes-input" placeholder="Session notes (weight, reps, conditions...)" rows="2">${context && state.sessionNotes[context] ? state.sessionNotes[context] : ''}</textarea>
     </div>
   `;
 
@@ -2483,6 +2742,7 @@ function openWorkout(workoutId, context) {
   }
   // Cancel any running rest timer when opening new workout
   cancelRestTimer();
+  // Pre-populate log values from saved state (steppers/tallies already rendered via template literals)
 }
 
 function closeWorkout() {
@@ -2561,12 +2821,119 @@ function cancelRestTimer() {
 function saveSessionNote() {
   const input = document.getElementById('session-notes-input');
   if (!input || !currentWorkoutContext) return;
-  if (input.value.trim()) {
-    state.sessionNotes[currentWorkoutContext] = input.value.trim();
+  const val = input.value.trim();
+  if (val) {
+    state.sessionNotes[currentWorkoutContext] = val;
   } else {
     delete state.sessionNotes[currentWorkoutContext];
   }
+  saveSessionLog({ note: val });
+}
+
+// ─── SESSION LOG HELPERS ───────────────────────────────────────────────────
+
+function getOrInitLog() {
+  if (!currentWorkoutContext) return null;
+  if (!state.sessionLogs[currentWorkoutContext]) {
+    state.sessionLogs[currentWorkoutContext] = {
+      workoutId: currentWorkoutId,
+      readiness: 0, rir: 2, rpe: 5, arrows: 0, hits: 0, note: '', ts: Date.now()
+    };
+  }
+  return state.sessionLogs[currentWorkoutContext];
+}
+
+function saveSessionLog(patch) {
+  const log = getOrInitLog();
+  if (!log) return;
+  Object.assign(log, patch, { ts: Date.now() });
   saveState();
+}
+
+function setReadiness(n) {
+  saveSessionLog({ readiness: n });
+  // Update button styles
+  for (let i = 1; i <= 5; i++) {
+    const btn = document.getElementById('r-btn-' + i);
+    if (!btn) continue;
+    btn.className = 'readiness-btn' + (i === n ? ' active-' + i : '');
+  }
+}
+
+function stepLog(field, delta) {
+  const log = getOrInitLog();
+  if (!log) return;
+  const mins = { rir: 0, rpe: 1 };
+  const maxs = { rir: 5, rpe: 10 };
+  log[field] = Math.min(maxs[field], Math.max(mins[field], (log[field] || 0) + delta));
+  saveState();
+  const el = document.getElementById(field + '-val');
+  if (el) el.textContent = log[field];
+}
+
+function stepTally(field, delta) {
+  const log = getOrInitLog();
+  if (!log) return;
+  log[field] = Math.max(0, (log[field] || 0) + delta);
+  // Hits can't exceed arrows
+  if (field === 'arrows' && log.hits > log.arrows) log.hits = log.arrows;
+  saveState();
+  const el = document.getElementById(field + '-val');
+  if (el) el.textContent = log[field];
+  // Update accuracy display
+  const acc = document.getElementById('tally-accuracy');
+  if (acc) {
+    acc.innerHTML = log.arrows > 0
+      ? `Accuracy: <span>${Math.round(Math.min(log.hits, log.arrows) / log.arrows * 100)}%</span>`
+      : 'Log your shots above';
+  }
+}
+
+function renderSessionHistory() {
+  // Show last 5 completed sessions with logs, on the home screen
+  const entries = Object.entries(state.sessionLogs)
+    .filter(([k, v]) => v && v.workoutId)
+    .sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0))
+    .slice(0, 5);
+
+  const el = document.getElementById('session-history');
+  if (!el) return;
+  if (entries.length === 0) {
+    el.innerHTML = '';
+    return;
+  }
+
+  const READINESS_COLORS = ['','r1','r2','r3','r4','r5'];
+  const rows = entries.map(([key, log]) => {
+    const w = WORKOUTS[log.workoutId];
+    if (!w) return '';
+    const date = log.ts ? new Date(log.ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+    let meta = '';
+    if (log.readiness > 0) {
+      const rLabels = ['','Dead','Low','OK','Good','Best'];
+      meta += `Feel: ${rLabels[log.readiness]}`;
+    }
+    if (log.arrows > 0) meta += (meta ? ' · ' : '') + `${log.hits}/${log.arrows} hits`;
+    else if (log.rir !== undefined && ['fullbody','upper','legs','push','pull','core','bagday','stepups','legblaster','gripcarry'].includes(log.workoutId)) meta += (meta ? ' · ' : '') + `RIR ${log.rir}`;
+    else if (log.rpe !== undefined && log.rpe !== 5) meta += (meta ? ' · ' : '') + `RPE ${log.rpe}`;
+    if (log.note) meta += (meta ? ' · ' : '') + log.note.slice(0, 30) + (log.note.length > 30 ? '…' : '');
+
+    const rClass = log.readiness > 0 ? READINESS_COLORS[log.readiness] : '';
+    return `<div class="log-history-item" onclick="openWorkout('${log.workoutId}')">
+      <div class="log-history-icon">${w.icon}</div>
+      <div class="log-history-info">
+        <div class="log-history-name">${w.name}</div>
+        <div class="log-history-meta">${date}${meta ? ' · ' + meta : ''}</div>
+      </div>
+      ${log.readiness > 0 ? `<div class="log-history-readiness ${rClass}">${log.readiness}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="log-history-bar">
+      <div class="log-history-title">Recent Sessions</div>
+      <div class="log-history-list">${rows}</div>
+    </div>`;
 }
 
 // ═══════════════════════════════════════════════
@@ -2732,6 +3099,7 @@ function setMode(mode) {
 
 function refreshCurrentTab() {
   if (currentTab === 'schedule') {
+    renderSessionHistory();
     if (state.mode === 'guided') renderGuidedWeeks();
     else renderFreestyle();
   } else if (currentTab === 'stats') {
@@ -2753,6 +3121,7 @@ function enterApp() {
 function init() {
   loadState();
   renderCountdown();
+  renderSessionHistory();
   renderGuidedWeeks();
   renderMainLibrary();
 
