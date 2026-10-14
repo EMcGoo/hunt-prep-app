@@ -1058,6 +1058,24 @@ html, body {
 .log-history-readiness.r4 { color: #70c050; }
 .log-history-readiness.r5 { color: #50e030; }
 
+/* ── WEEK JOURNAL BUTTON ── */
+.week-journal-btn {
+  background: #1a2a14;
+  border: 1px solid #3a5a30;
+  border-radius: 8px;
+  color: #8ab080;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.week-journal-btn:active { background: #2a3a24; }
+
 /* ── HERO COUNTDOWN ── */
 .hero-countdown {
   text-align: center;
@@ -1182,16 +1200,16 @@ html, body {
   <!-- BOTTOM NAV -->
   <div class="bottomnav">
     <button class="nav-btn active" id="nav-schedule" onclick="showTab('schedule')">
-      <span class="nav-icon">📅</span>Schedule
+      <span class="nav-icon">📅</span>Plan
     </button>
     <button class="nav-btn" id="nav-workouts" onclick="showTab('workouts')">
-      <span class="nav-icon">💪</span>Workouts
+      <span class="nav-icon">💪</span>Library
     </button>
     <button class="nav-btn" id="nav-ruck" onclick="showTab('ruck')">
-      <span class="nav-icon">🎒</span>Ruck
+      <span class="nav-icon">📓</span>Journal
     </button>
     <button class="nav-btn" id="nav-stats" onclick="showTab('stats')">
-      <span class="nav-icon">📊</span>Progress
+      <span class="nav-icon">📊</span>Stats
     </button>
   </div>
 
@@ -1226,7 +1244,7 @@ html, body {
         <div class="streak-item">
           <div class="streak-ring">
             <svg width="44" height="44" viewBox="0 0 44 44">
-              <circle cx="22" cy="22" r="18" fill="none" stroke="#1e2e18" stroke-width="4"/>
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#2a3e22" stroke-width="4"/>
               <circle cx="22" cy="22" r="18" fill="none" stroke="#4a8a3a" stroke-width="4"
                 stroke-dasharray="113" id="ring-gym" stroke-dashoffset="113" stroke-linecap="round"/>
             </svg>
@@ -1237,7 +1255,7 @@ html, body {
         <div class="streak-item">
           <div class="streak-ring">
             <svg width="44" height="44" viewBox="0 0 44 44">
-              <circle cx="22" cy="22" r="18" fill="none" stroke="#1e2020" stroke-width="4"/>
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#1e2a30" stroke-width="4"/>
               <circle cx="22" cy="22" r="18" fill="none" stroke="#3a7a9a" stroke-width="4"
                 stroke-dasharray="113" id="ring-run" stroke-dashoffset="113" stroke-linecap="round"/>
             </svg>
@@ -1248,7 +1266,7 @@ html, body {
         <div class="streak-item">
           <div class="streak-ring">
             <svg width="44" height="44" viewBox="0 0 44 44">
-              <circle cx="22" cy="22" r="18" fill="none" stroke="#201e10" stroke-width="4"/>
+              <circle cx="22" cy="22" r="18" fill="none" stroke="#302e14" stroke-width="4"/>
               <circle cx="22" cy="22" r="18" fill="none" stroke="#8a7a2a" stroke-width="4"
                 stroke-dasharray="113" id="ring-walk" stroke-dashoffset="113" stroke-linecap="round"/>
             </svg>
@@ -1294,7 +1312,7 @@ html, body {
   <!-- ── TAB: RUCK ── -->
   <div id="tab-ruck" class="tab-content" style="display:none;flex-direction:column;flex:1;min-height:100vh;">
     <div class="topbar">
-      <span class="topbar-title">Ruck &amp; Run Log</span>
+      <span class="topbar-title">Journal</span>
     </div>
     <div class="content">
 
@@ -2691,6 +2709,7 @@ function renderGuidedWeeks() {
           <div class="week-title-text">${week.label}</div>
           <div class="week-meta">${week.note} · ${completedThisWeek}/${week.days.filter(d => d !== 'rest').length} done</div>
         </div>
+        ${isCurrent ? `<button class="week-journal-btn" onclick="event.stopPropagation(); showTab('ruck')" title="Open Journal">📓</button>` : ''}
       </div>
       <div class="week-progress-row">
         ${week.days.map((dayType, i) => {
@@ -2940,6 +2959,7 @@ let currentWorkoutId = null;
 let currentWorkoutContext = null;
 
 function openWorkout(workoutId, context) {
+  pushNavState('workout');
   const w = WORKOUTS[workoutId];
   if (!w) return;
   currentWorkoutId = workoutId;
@@ -3551,6 +3571,7 @@ function init() {
   document.getElementById('free-view').style.display = state.mode === 'free' ? 'block' : 'none';
 
   showTab('schedule');
+  initNavHistory();
 }
 
 // Auto-skip splash for returning users
@@ -3566,12 +3587,26 @@ document.addEventListener('DOMContentLoaded', function() {
   } catch(e) {}
 });
 
-// Handle back button
-window.addEventListener('popstate', () => {
+// Handle back button - push state so back stays in-app
+function pushNavState(page) {
+  history.pushState({ page }, '', window.location.pathname + window.location.search);
+}
+
+window.addEventListener('popstate', (e) => {
   if (document.getElementById('workout-screen').classList.contains('active')) {
     closeWorkout();
+  } else if (e.state && e.state.page === 'app') {
+    // Already in app, stay here
+  } else {
+    // Push a state so next back stays in app
+    history.pushState({ page: 'app' }, '', window.location.pathname);
   }
 });
+
+// Push initial state when app loads so first back doesn't exit
+function initNavHistory() {
+  history.replaceState({ page: 'app' }, '', window.location.pathname);
+}
 </script>
 </body>
 </html>
