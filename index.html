@@ -200,42 +200,8 @@ html, body {
 
 /* ── HOME SCREEN ── */
 .home-header {
-  background: linear-gradient(135deg, var(--bg3) 0%, var(--card) 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
-.home-header h2 {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-.home-header p { font-size: 13px; color: var(--text2); margin-top: 4px; }
-.countdown-row {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-}
-.countdown-chip {
-  flex: 1;
-  background: var(--gold-dim);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius);
-  padding: 12px 8px;
-  text-align: center;
-}
-.countdown-num {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--gold);
-  line-height: 1;
-}
-.countdown-label { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
 
 .mode-toggle {
   display: flex;
@@ -1089,6 +1055,56 @@ html, body {
 .log-history-readiness.r4 { color: #70c050; }
 .log-history-readiness.r5 { color: #50e030; }
 
+/* ── HERO COUNTDOWN ── */
+.hero-countdown {
+  text-align: center;
+  padding: 20px 16px 14px;
+  background: linear-gradient(180deg, #0d1a08 0%, #121a0a 100%);
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+.hero-days-num {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1;
+  color: #c8a84b;
+  letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
+}
+.hero-days-label {
+  font-size: 13px;
+  color: #6a7a5a;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+.hero-date {
+  font-size: 12px;
+  color: #4a7c3f;
+  margin-top: 6px;
+  font-weight: 600;
+}
+.hero-progress-track {
+  height: 4px;
+  background: #1e2e18;
+  border-radius: 2px;
+  margin: 12px 0 6px;
+  overflow: hidden;
+}
+.hero-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4a8a3a, #c8a84b);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+  width: 0%;
+}
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #5a6a4a;
+}
+
 /* ── WEEKLY RINGS / STREAK ── */
 .streak-bar {
   display: flex;
@@ -1183,20 +1199,16 @@ html, body {
     </div>
     <div class="content">
       <div class="home-header">
-        <h2>September Hunt</h2>
-        <p>3rd week of September · Stay the course</p>
-        <div class="countdown-row">
-          <div class="countdown-chip">
-            <div class="countdown-num" id="weeks-left">--</div>
-            <div class="countdown-label">Weeks</div>
+        <div class="hero-countdown">
+          <div class="hero-days-num" id="days-left">--</div>
+          <div class="hero-days-label">days to opening day</div>
+          <div class="hero-date">Sep 15 · Elk Archery</div>
+          <div class="hero-progress-track">
+            <div class="hero-progress-fill" id="hero-progress-fill"></div>
           </div>
-          <div class="countdown-chip">
-            <div class="countdown-num" id="days-left">--</div>
-            <div class="countdown-label">Days</div>
-          </div>
-          <div class="countdown-chip">
-            <div class="countdown-num" id="current-week">1</div>
-            <div class="countdown-label">Current Wk</div>
+          <div class="hero-meta">
+            <span>Wk <span id="current-week">1</span> of 21</span>
+            <span id="weeks-left">--</span> wks remaining
           </div>
         </div>
       </div>
@@ -2616,9 +2628,21 @@ function renderCountdown() {
   const days = getDaysToHunt();
   const weeks = Math.floor(days / 7);
   const currentWeek = getCurrentWeek();
-  document.getElementById('weeks-left').textContent = weeks;
-  document.getElementById('days-left').textContent = days;
-  document.getElementById('current-week').textContent = currentWeek;
+
+  // Hero countdown
+  const daysEl = document.getElementById('days-left');
+  const weeksEl = document.getElementById('weeks-left');
+  const cwEl = document.getElementById('current-week');
+  if (daysEl) daysEl.textContent = days;
+  if (weeksEl) weeksEl.textContent = weeks;
+  if (cwEl) cwEl.textContent = currentWeek;
+
+  // Progress bar: weeks completed out of 21
+  const fill = document.getElementById('hero-progress-fill');
+  if (fill) {
+    const pct = Math.min(100, Math.round(((currentWeek - 1) / 21) * 100));
+    fill.style.width = pct + '%';
+  }
 
   // Update weekly rings
   const stats = getWeeklyStats();
