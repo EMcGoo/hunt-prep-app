@@ -649,6 +649,140 @@ html, body {
 }
 
 /* ── RUCK GUIDANCE ── */
+/* ── RUCK/RUN LOG ── */
+.outlog-toggle {
+  display: flex;
+  background: #1a1a0e;
+  border: 1px solid #2a2a18;
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 12px;
+}
+.outlog-toggle-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  border-radius: 7px;
+  color: #686850;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 8px 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.outlog-toggle-btn.active {
+  background: #2a3a1e;
+  color: #90d060;
+}
+.outlog-form {
+  background: #161610;
+  border: 1px solid #2a2a18;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.outlog-field {
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  border-bottom: 1px solid #1e1e12;
+  gap: 10px;
+}
+.outlog-field:last-child { border-bottom: none; }
+.outlog-field-icon { font-size: 16px; width: 22px; text-align: center; flex-shrink: 0; }
+.outlog-field-label { flex: 1; font-size: 13px; color: #888870; }
+.outlog-field-unit { font-size: 11px; color: #484838; margin-left: 4px; }
+.outlog-input {
+  background: #1e1e12;
+  border: 1px solid #2a2a18;
+  border-radius: 7px;
+  color: #c8c8a0;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 6px 10px;
+  width: 80px;
+  text-align: right;
+  -webkit-appearance: none;
+}
+.outlog-input:focus { outline: none; border-color: #4a6a3a; }
+.outlog-derived {
+  background: #1a2010;
+  border: 1px solid #2a3a18;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.outlog-derived-label { font-size: 12px; color: #688050; flex: 1; }
+.outlog-derived-val { font-size: 20px; font-weight: 700; color: #90d060; font-family: 'Space Grotesk', sans-serif; }
+.outlog-derived-unit { font-size: 11px; color: #688050; }
+.outlog-save-btn {
+  width: 100%;
+  background: #2a4a1e;
+  border: 1px solid #3a6a28;
+  border-radius: 10px;
+  color: #90d060;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 13px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: background 0.15s;
+}
+.outlog-save-btn:active { background: #3a6a2a; }
+.outlog-history-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #686850;
+  margin-bottom: 8px;
+}
+.outlog-history-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.outlog-history-item {
+  background: #1a1a0e;
+  border: 1px solid #2a2a18;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.outlog-history-row1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.outlog-history-type {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: #2a3a1e;
+  color: #90d060;
+}
+.outlog-history-type.run { background: #1a2a3a; color: #60a0d0; }
+.outlog-history-date { font-size: 11px; color: #484838; margin-left: auto; }
+.outlog-history-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.outlog-stat { font-size: 12px; color: #888870; }
+.outlog-stat strong { color: #c8c8a0; font-weight: 600; }
+.outlog-derived-badge {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  color: #90d060;
+}
+.outlog-derived-badge.run { color: #60a0d0; }
+
 .ruck-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -1145,9 +1279,93 @@ html, body {
   <!-- ── TAB: RUCK ── -->
   <div id="tab-ruck" class="tab-content" style="display:none;flex-direction:column;flex:1;min-height:100vh;">
     <div class="topbar">
-      <span class="topbar-title">Ruck Guide</span>
+      <span class="topbar-title">Ruck &amp; Run Log</span>
     </div>
     <div class="content">
+
+      <!-- LOG ENTRY FORM -->
+      <div class="outlog-toggle">
+        <button class="outlog-toggle-btn active" id="log-toggle-ruck" onclick="setLogType('ruck')">🎒 Ruck</button>
+        <button class="outlog-toggle-btn" id="log-toggle-run" onclick="setLogType('run')">🏃 Run</button>
+      </div>
+
+      <!-- RUCK FIELDS -->
+      <div id="log-form-ruck">
+        <div class="outlog-form">
+          <div class="outlog-field">
+            <span class="outlog-field-icon">🎒</span>
+            <span class="outlog-field-label">Pack Weight <span class="outlog-field-unit">lb</span></span>
+            <input class="outlog-input" type="number" id="log-packLb" placeholder="35" min="0" max="120" inputmode="decimal">
+          </div>
+          <div class="outlog-field">
+            <span class="outlog-field-icon">📍</span>
+            <span class="outlog-field-label">Distance <span class="outlog-field-unit">miles</span></span>
+            <input class="outlog-input" type="number" id="log-distMi" placeholder="4.0" min="0" step="0.1" inputmode="decimal" oninput="updateDerived()">
+          </div>
+          <div class="outlog-field">
+            <span class="outlog-field-icon">⛰️</span>
+            <span class="outlog-field-label">Elevation Gain <span class="outlog-field-unit">ft</span></span>
+            <input class="outlog-input" type="number" id="log-elevFt" placeholder="800" min="0" inputmode="decimal" oninput="updateDerived()">
+          </div>
+          <div class="outlog-field">
+            <span class="outlog-field-icon">⏱️</span>
+            <span class="outlog-field-label">Duration <span class="outlog-field-unit">min</span></span>
+            <input class="outlog-input" type="number" id="log-durMin" placeholder="90" min="0" inputmode="decimal" oninput="updateDerived()">
+          </div>
+          <div class="outlog-field">
+            <span class="outlog-field-icon">💢</span>
+            <span class="outlog-field-label">Effort <span class="outlog-field-unit">RPE 1–10</span></span>
+            <input class="outlog-input" type="number" id="log-rpe" placeholder="6" min="1" max="10" inputmode="decimal">
+          </div>
+        </div>
+        <div class="outlog-derived" id="derived-ruck">
+          <div class="outlog-derived-label">Load × Vert (progression target — grow this number)</div>
+          <div><span class="outlog-derived-val" id="derived-lv">—</span> <span class="outlog-derived-unit">lb·ft</span></div>
+        </div>
+      </div>
+
+      <!-- RUN FIELDS -->
+      <div id="log-form-run" style="display:none">
+        <div class="outlog-form">
+          <div class="outlog-field">
+            <span class="outlog-field-icon">📍</span>
+            <span class="outlog-field-label">Distance <span class="outlog-field-unit">miles</span></span>
+            <input class="outlog-input" type="number" id="run-distMi" placeholder="4.0" min="0" step="0.1" inputmode="decimal" oninput="updateRunDerived()">
+          </div>
+          <div class="outlog-field">
+            <span class="outlog-field-icon">⛰️</span>
+            <span class="outlog-field-label">Elevation Gain <span class="outlog-field-unit">ft</span></span>
+            <input class="outlog-input" type="number" id="run-elevFt" placeholder="400" min="0" inputmode="decimal">
+          </div>
+          <div class="outlog-field">
+            <span class="outlog-field-icon">⏱️</span>
+            <span class="outlog-field-label">Duration <span class="outlog-field-unit">min</span></span>
+            <input class="outlog-input" type="number" id="run-durMin" placeholder="45" min="0" inputmode="decimal" oninput="updateRunDerived()">
+          </div>
+          <div class="outlog-field">
+            <span class="outlog-field-icon">💢</span>
+            <span class="outlog-field-label">Effort <span class="outlog-field-unit">RPE 1–10</span></span>
+            <input class="outlog-input" type="number" id="run-rpe" placeholder="6" min="1" max="10" inputmode="decimal">
+          </div>
+        </div>
+        <div class="outlog-derived" id="derived-run" style="border-color:#1a2a3a;background:#101820">
+          <div class="outlog-derived-label" style="color:#3a7090">Pace (auto-calculated)</div>
+          <div><span class="outlog-derived-val" id="derived-pace" style="color:#60a0d0">—</span> <span class="outlog-derived-unit" style="color:#3a7090">min/mi</span></div>
+        </div>
+      </div>
+
+      <button class="outlog-save-btn" onclick="saveOutLog()">Save Entry</button>
+
+      <!-- HISTORY -->
+      <div id="outlog-history-section">
+        <div class="outlog-history-title">Log History</div>
+        <div class="outlog-history-list" id="outlog-history-list">
+          <div style="color:#484838;font-size:13px;text-align:center;padding:16px 0">No entries yet — log your first ruck or run above</div>
+        </div>
+      </div>
+
+      <!-- RUCK GUIDE -->
+      <div class="section-title" style="margin-top:8px">Ruck Guide</div>
       <div class="research-note">
         <strong>Research:</strong> Knapik (2012) meta-analysis found rucking produced the largest load-carriage effect size of any training modality — 1.7 SD vs 0.75 for strength alone. This is non-substitutable for September performance.
       </div>
@@ -2285,6 +2503,7 @@ let state = {
   completedDays: {}, // key: "w1-mon" etc
   sessionNotes: {}, // key: contextKey, value: note string
   sessionLogs: {},  // key: contextKey, value: { readiness, rir, rpe, arrows, hits, note, ts }
+  outLogs: [],      // array of { type:'ruck'|'run', date, packLb, distMi, elevFt, durMin, rpe }
   startDate: null,
 };
 
@@ -2491,6 +2710,130 @@ function renderLibraryCards() {
 
 function renderMainLibrary() {
   document.getElementById('main-library').innerHTML = renderLibraryCards();
+}
+
+// ═══════════════════════════════════════════════
+// RUCK / RUN LOG
+// ═══════════════════════════════════════════════
+let currentLogType = 'ruck';
+
+function setLogType(type) {
+  currentLogType = type;
+  document.getElementById('log-toggle-ruck').className = 'outlog-toggle-btn' + (type === 'ruck' ? ' active' : '');
+  document.getElementById('log-toggle-run').className = 'outlog-toggle-btn' + (type === 'run' ? ' active' : '');
+  document.getElementById('log-form-ruck').style.display = type === 'ruck' ? 'block' : 'none';
+  document.getElementById('log-form-run').style.display = type === 'run' ? 'block' : 'none';
+}
+
+function updateDerived() {
+  const pack = parseFloat(document.getElementById('log-packLb').value) || 0;
+  const elev = parseFloat(document.getElementById('log-elevFt').value) || 0;
+  const lv = pack > 0 && elev > 0 ? Math.round(pack * elev) : null;
+  const el = document.getElementById('derived-lv');
+  if (el) el.textContent = lv ? lv.toLocaleString() : '—';
+}
+
+function updateRunDerived() {
+  const dist = parseFloat(document.getElementById('run-distMi').value) || 0;
+  const dur = parseFloat(document.getElementById('run-durMin').value) || 0;
+  const el = document.getElementById('derived-pace');
+  if (!el) return;
+  if (dist > 0 && dur > 0) {
+    const paceTotal = dur / dist;
+    const pm = Math.floor(paceTotal);
+    const ps = Math.round((paceTotal - pm) * 60);
+    el.textContent = `${pm}:${ps.toString().padStart(2,'0')}`;
+  } else {
+    el.textContent = '—';
+  }
+}
+
+function saveOutLog() {
+  const isRuck = currentLogType === 'ruck';
+  const entry = {
+    type: currentLogType,
+    date: new Date().toISOString(),
+    rpe: isRuck
+      ? (parseFloat(document.getElementById('log-rpe').value) || null)
+      : (parseFloat(document.getElementById('run-rpe').value) || null),
+  };
+
+  if (isRuck) {
+    entry.packLb = parseFloat(document.getElementById('log-packLb').value) || null;
+    entry.distMi = parseFloat(document.getElementById('log-distMi').value) || null;
+    entry.elevFt = parseFloat(document.getElementById('log-elevFt').value) || null;
+    entry.durMin = parseFloat(document.getElementById('log-durMin').value) || null;
+    if (entry.packLb && entry.elevFt) entry.loadVert = Math.round(entry.packLb * entry.elevFt);
+  } else {
+    entry.distMi = parseFloat(document.getElementById('run-distMi').value) || null;
+    entry.elevFt = parseFloat(document.getElementById('run-elevFt').value) || null;
+    entry.durMin = parseFloat(document.getElementById('run-durMin').value) || null;
+    if (entry.distMi && entry.durMin) {
+      const p = entry.durMin / entry.distMi;
+      const pm = Math.floor(p);
+      const ps = Math.round((p - pm) * 60);
+      entry.pace = `${pm}:${ps.toString().padStart(2,'0')}`;
+    }
+  }
+
+  if (!state.outLogs) state.outLogs = [];
+  state.outLogs.unshift(entry);
+  saveState();
+
+  // Clear inputs
+  ['log-packLb','log-distMi','log-elevFt','log-durMin','log-rpe',
+   'run-distMi','run-elevFt','run-durMin','run-rpe'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  const lvEl = document.getElementById('derived-lv');
+  if (lvEl) lvEl.textContent = '—';
+  const paceEl = document.getElementById('derived-pace');
+  if (paceEl) paceEl.textContent = '—';
+
+  renderOutLogHistory();
+
+  // Brief save confirmation
+  const btn = document.querySelector('.outlog-save-btn');
+  if (btn) {
+    btn.textContent = '✓ Saved!';
+    btn.style.background = '#1a3a10';
+    setTimeout(() => { btn.textContent = 'Save Entry'; btn.style.background = ''; }, 1500);
+  }
+}
+
+function renderOutLogHistory() {
+  const list = document.getElementById('outlog-history-list');
+  if (!list) return;
+  const logs = (state.outLogs || []).slice(0, 20);
+  if (logs.length === 0) {
+    list.innerHTML = '<div style="color:#484838;font-size:13px;text-align:center;padding:16px 0">No entries yet — log your first ruck or run above</div>';
+    return;
+  }
+  list.innerHTML = logs.map(e => {
+    const d = new Date(e.date);
+    const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const isRuck = e.type === 'ruck';
+    const stats = [];
+    if (e.packLb) stats.push(`<span class="outlog-stat"><strong>${e.packLb} lb</strong> pack</span>`);
+    if (e.distMi) stats.push(`<span class="outlog-stat"><strong>${e.distMi} mi</strong></span>`);
+    if (e.elevFt) stats.push(`<span class="outlog-stat"><strong>${e.elevFt.toLocaleString()} ft</strong> gain</span>`);
+    if (e.durMin) stats.push(`<span class="outlog-stat"><strong>${e.durMin} min</strong></span>`);
+    if (e.rpe) stats.push(`<span class="outlog-stat">RPE <strong>${e.rpe}</strong></span>`);
+    const derived = isRuck && e.loadVert
+      ? `<span class="outlog-derived-badge">${e.loadVert.toLocaleString()} lb·ft</span>`
+      : !isRuck && e.pace
+      ? `<span class="outlog-derived-badge run">${e.pace}/mi</span>`
+      : '';
+    return `<div class="outlog-history-item">
+      <div class="outlog-history-row1">
+        <span class="outlog-history-type ${isRuck ? '' : 'run'}">${isRuck ? '🎒 Ruck' : '🏃 Run'}</span>
+        ${derived}
+        <span class="outlog-history-date">${dateStr}</span>
+      </div>
+      <div class="outlog-history-stats">${stats.join('')}</div>
+    </div>`;
+  }).join('');
 }
 
 function renderRuck() {
@@ -2780,19 +3123,65 @@ function toggleWorkoutDone() {
 // ═══════════════════════════════════════════════
 let restTimerInterval = null;
 let restTimerEnd = null;
+let _audioCtx = null;
+
+function _getAudioCtx() {
+  // Lazily create — must be triggered by user gesture (already is, via button tap)
+  if (!_audioCtx) {
+    try { _audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  return _audioCtx;
+}
+
+function _playBeep(freq, dur, vol) {
+  // Web Audio API beep — works on iOS Safari where vibrate does not
+  try {
+    const ctx = _getAudioCtx();
+    if (!ctx) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + dur);
+  } catch(e) {}
+}
+
+function _timerDoneAlert() {
+  // 1. Vibrate (Android + some browsers)
+  try { if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]); } catch(e) {}
+  // 2. Audio beep sequence (iOS + all browsers with Web Audio)
+  _playBeep(880, 0.15, 0.6);
+  setTimeout(() => _playBeep(880, 0.15, 0.6), 200);
+  setTimeout(() => _playBeep(1100, 0.3, 0.8), 420);
+  // 3. Screen flash (visual fallback for silent mode)
+  const flash = document.createElement('div');
+  flash.style.cssText = 'position:fixed;inset:0;background:rgba(80,220,50,0.25);z-index:9999;pointer-events:none;transition:opacity 0.4s';
+  document.body.appendChild(flash);
+  setTimeout(() => { flash.style.opacity = '0'; setTimeout(() => flash.remove(), 400); }, 100);
+}
+
+// Unlock audio context on first user tap (iOS requires this)
+document.addEventListener('touchstart', () => { _getAudioCtx(); }, { once: true, passive: true });
+document.addEventListener('click', () => { _getAudioCtx(); }, { once: true });
 
 function startRestTimer(seconds) {
   if (restTimerInterval) clearInterval(restTimerInterval);
   restTimerEnd = Date.now() + seconds * 1000;
   document.getElementById('rest-display').style.display = 'flex';
   document.querySelectorAll('.rest-timer-btns').forEach(el => el.style.display = 'none');
+  // Unlock audio on same gesture as button press
+  _getAudioCtx();
   updateRestDisplay();
   restTimerInterval = setInterval(() => {
     const remaining = Math.ceil((restTimerEnd - Date.now()) / 1000);
     if (remaining <= 0) {
       cancelRestTimer();
-      // Vibrate if supported
-      try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch(e) {}
+      _timerDoneAlert();
       return;
     }
     updateRestDisplay();
@@ -3102,6 +3491,8 @@ function refreshCurrentTab() {
     renderSessionHistory();
     if (state.mode === 'guided') renderGuidedWeeks();
     else renderFreestyle();
+  } else if (currentTab === 'ruck') {
+    renderOutLogHistory();
   } else if (currentTab === 'stats') {
     renderStats();
   }
@@ -3124,6 +3515,7 @@ function init() {
   renderSessionHistory();
   renderGuidedWeeks();
   renderMainLibrary();
+  renderOutLogHistory();
 
   // Set mode
   document.getElementById('mode-guided').classList.toggle('active', state.mode === 'guided');
