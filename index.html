@@ -1323,6 +1323,281 @@ const WORKOUTS = {
       },
     ]
   },
+
+  // ── RUNNING WORKOUTS ──
+  easyrun: {
+    id: 'easyrun',
+    name: 'Easy Run',
+    icon: '🏃',
+    meta: '30–45 min · Zone 2 aerobic base builder',
+    tag: 'Run',
+    tagColor: 'badge-d',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Before You Go', badge: 'badge-warmup', title: 'Trail Run Rules — Zone 2', time: '5 min',
+        exercises: [
+          { name: 'Dynamic Warm-Up', detail: '5 min walk to ease into the run. Leg swings, hip circles, light ankle rolls. Never start cold on trail.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'The Nasal Rule', detail: 'Run slow enough that you can breathe through your nose the entire time. If your mouth opens, slow down. On trail, this often means hiking steep sections — that is correct Zone 2.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'This is the whole session — do not skip this rule' },
+        ]
+      },
+      {
+        label: 'Main Run', badge: 'badge-a', title: '30–45 Min Easy Trail Run', time: '30–45 min',
+        exercises: [
+          { name: 'Effort-Based Pacing', detail: 'On trail, forget pace-per-mile. Effort is everything. Uphills: power hike if needed — hiking steep at Zone 2 is MORE effective than running and gasping. Downhills: let gravity help, stay light on your feet.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Road vs Trail Pacing', detail: 'If you hit a road section, your pace will naturally speed up. Monitor breathing — if your mouth opens, ease off. Trail running is slower than road running at the same effort.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Foot Strike on Trail', detail: 'Shorter stride, quicker turnover on technical ground. Land midfoot, not heel. Keep eyes scanning 6–10 ft ahead for roots and rocks. This exact movement pattern carries over to off-trail elk country.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Cool-Down', badge: 'badge-cool', title: 'Post-Run', time: '5 min',
+        exercises: [
+          { name: 'Walk 5 Min', detail: "Don't stop dead. Walk the last 5 minutes to bring heart rate down gradually. Prevents blood pooling.", equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Calf + Achilles Stretch', detail: '45 sec each side. Trail running loads the Achilles harder than road. Keep it loose.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Hip Flexor Stretch', detail: '45 sec each side. Running tightens hip flexors. Same ones getting hammered on steep ascents.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  temporun: {
+    id: 'temporun',
+    name: 'Tempo Run',
+    icon: '⏱️',
+    meta: '35–40 min · Lactate threshold builder',
+    tag: 'Run',
+    tagColor: 'badge-b',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Warm-Up', badge: 'badge-warmup', title: 'Build Into It', time: '10 min',
+        exercises: [
+          { name: 'Easy Jog 10 Min', detail: 'Start fully easy. Road or flat trail. Legs turning over, not working yet. This primes the aerobic system before pushing the threshold.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Strides × 4', detail: '4 × 20-sec accelerations at 80% — not sprinting, just opening the legs. 20-sec walk recovery between each. Prep the neuromuscular system.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Tempo Block', badge: 'badge-a', title: '20 Min Comfortably Hard', time: '20 min',
+        exercises: [
+          { name: 'Comfortably Hard Effort', detail: '"Comfortably hard" — you can speak in broken sentences, not full ones. On trail or road. This is your lactate threshold pace. Builds your ability to sustain output on long steep days.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'If on trail: uphills will drop you out of tempo — power hike and pick it back up on flat' },
+          { name: 'Trail Adjustment', detail: 'Trails mean tempo is effort-based, not pace-based. Uphills you power hike at hard effort, downhills you let it roll. The goal is sustained cardiovascular stress, not a specific speed.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Cool-Down', badge: 'badge-cool', title: 'Bring It Down', time: '10 min',
+        exercises: [
+          { name: 'Easy Jog 10 Min', detail: 'Full easy effort back to start. Flushes lactate from the legs. Skip this and you will feel it tomorrow.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Stretch', detail: 'Calves, quads, hip flexors. 45 sec each. Tempo runs tighten everything.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  intervalrun: {
+    id: 'intervalrun',
+    name: 'Interval Run',
+    icon: '⚡',
+    meta: '35 min · VO2max intervals — pure conditioning',
+    tag: 'Run',
+    tagColor: 'badge-e',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Warm-Up', badge: 'badge-warmup', title: 'Full Prep — Do Not Skip', time: '10 min',
+        exercises: [
+          { name: 'Easy Jog 10 Min', detail: 'Full easy effort. Intervals are hard enough that an under-warmed body gets injured. Ten full minutes minimum.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Intervals', badge: 'badge-a', title: '6–8 × Hard Effort', time: '16–20 min',
+        exercises: [
+          { name: '6–8 × 2 Min Hard / 90 Sec Easy', detail: 'Hard = 85–90% effort. On trail, use a flat or gently rolling section. 2 min at hard effort, 90 sec easy jog or walk recovery. Do not sprint — controlled hard pace you can hold all 8 rounds.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Start with 6 rounds. Add 1 round per week up to 8 max.' },
+          { name: 'Trail vs Road', detail: 'Road intervals are more consistent. Trail intervals are more hunt-specific. Either works. On trail, avoid technical sections where you are watching your feet — find a stretch you can run hard and look ahead.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'How Hard Is Hard Enough?', detail: 'By rep 6, you should be working seriously. If rep 6 felt easy, go harder next time. If you blew up on rep 4, back off 10%. The goal is sustainable hard effort across all rounds.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Cool-Down', badge: 'badge-cool', title: 'Mandatory Recovery', time: '5–10 min',
+        exercises: [
+          { name: 'Easy Walk or Jog 5–10 Min', detail: 'Intervals spike cortisol. The cool-down is when your body starts recovering. Do not skip it or jump straight in the car.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Full Stretch', detail: 'Quads, calves, hip flexors, hamstrings. Intervals produce more soreness than easy runs. Spend 5 full minutes here.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  longrun: {
+    id: 'longrun',
+    name: 'Long Run',
+    icon: '🏔️',
+    meta: '60–90 min · Weekend aerobic base builder',
+    tag: 'Run',
+    tagColor: 'badge-c',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Setup', badge: 'badge-warmup', title: 'Long Run Logistics', time: 'Pre-run',
+        exercises: [
+          { name: 'Water and Fuel', detail: 'Anything over 60 min needs water. Carry a bottle or hydration pack. Over 75 min, bring a gel or food. Bonking on a long run is miserable and unnecessary.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Pick Your Route', detail: 'Trail preferred. Elevation gain is a bonus — this builds the same cardiovascular system as rucking. Missoula has no shortage of options. Pick something interesting so you actually do it.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Main Run', badge: 'badge-a', title: '60–90 Min Easy Continuous', time: '60–90 min',
+        exercises: [
+          { name: 'Start Slow, Finish Feeling Good', detail: 'The cardinal rule of long runs. Start 20% easier than you think you need to. The last 20 minutes should feel like your first 20 minutes — controlled, nasal breathing, in your body. If you are dying at mile 5, you went out too fast.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Zone 2 the entire time — nasal breathing test applies' },
+          { name: 'Mix Road and Trail', detail: 'Use road sections to recover and trail sections to build. On trail, hike anything that breaks your nasal breathing. This is not weakness — it is correct training for elk country.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Progressive Approach', detail: 'Week 1: 60 min. Add 10 min every 2 weeks up to 90 min by mid-program. Never add more than 10 min per week to long run duration. This protects your joints and tendons.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Cool-Down', badge: 'badge-cool', title: 'Recovery Matters More Here', time: '10 min',
+        exercises: [
+          { name: 'Walk 10 Min', detail: 'Long runs stress the system more than any other run. Walk the last mile if you can. Immediate nutrition within 30 min of finishing — protein + carbs.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Full Body Stretch', detail: 'Hips, IT band, calves, quads, hamstrings. Spend more time here than after shorter runs. This is where next-day soreness is determined.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  hillsprints: {
+    id: 'hillsprints',
+    name: 'Hill Sprints',
+    icon: '⛰️',
+    meta: '30 min · The most hunt-specific run you can do',
+    tag: 'Run',
+    tagColor: 'badge-finisher',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Warm-Up', badge: 'badge-warmup', title: 'Full Prep — Non-Negotiable', time: '10 min',
+        exercises: [
+          { name: 'Easy Jog 10 Min', detail: 'Sprinting cold is how hamstrings get pulled. Ten full minutes of easy running before your first sprint. Not negotiable.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Find Your Hill', detail: 'Steep is better. 15–25% grade if possible. 30–40 seconds of hard running uphill. Trail hill preferred — this directly simulates the explosive uphill efforts chasing bugles in thick timber.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Sprints', badge: 'badge-a', title: '8–10 × 30-Second Hill Sprints', time: '15 min',
+        exercises: [
+          { name: '8–10 × 30 Sec Hard Uphill', detail: 'Full effort uphill for 30 seconds. Walk back down — that is your recovery, 60–90 sec. The walk down is important: loaded descents build the same eccentric quad strength that protects your knees on pack-out day.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Elk hunting demands explosive bursts up steep ground chasing bugles. This is the exact pattern.' },
+          { name: 'Drive the Arms', detail: 'Arms drive the legs on hill sprints. Punch forward, not across. Short quick stride, not long bounding. Stay low and aggressive. This is the most metabolically demanding session in the program.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Breathing Will Be Broken', detail: 'You will be breathing through your mouth at the top of each sprint. That is correct. This session is not Zone 2. It is high-intensity glycolytic work. You should feel it. Start with 8 rounds and work up to 10.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Cool-Down', badge: 'badge-cool', title: 'Bring It Down Slowly', time: '5–10 min',
+        exercises: [
+          { name: 'Easy Walk 5–10 Min', detail: 'Heart rate will be very high after the last sprint. Walk fully before stretching — do not stretch at max heart rate.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Quads + Calves + Hip Flexors', detail: '45 sec each. Hill sprints are brutal on these three specifically. If you skip this you will feel it walking downstairs tomorrow.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  // ── FREESTYLE EXTRA SESSIONS ──
+  activerecovery: {
+    id: 'activerecovery',
+    name: 'Active Recovery',
+    icon: '🧘',
+    meta: '30–40 min · Movement without stress',
+    tag: 'Recovery',
+    tagColor: 'badge-warmup',
+    libTag: 'eq-bw',
+    blocks: [
+      {
+        label: 'Purpose', badge: 'badge-warmup', title: 'Why This Session Exists', time: 'All session',
+        exercises: [
+          { name: 'Active Recovery vs Rest', detail: 'Total rest slows recovery more than light movement. Blood flow removes metabolic waste, delivers nutrients, and keeps joints mobile. This session should feel like a 3 out of 10 effort — never more.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+      {
+        label: 'Mobility Flow', badge: 'badge-a', title: 'Full Body Mobility', time: '15 min',
+        exercises: [
+          { name: "World's Greatest Stretch", detail: '6 each side — lunge forward, elbow to floor, then rotate arm to ceiling. Best single movement for hips, t-spine, and ankles. Slow and controlled.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Hip 90/90 Stretch', detail: '60 sec each side — front leg and back leg both at 90°, sit tall, hold. Opens internal and external hip rotation. Essential for sideslope footing in elk country.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Thoracic Rotation', detail: '10 each side — hands behind head, rotate upper back open. Hunters get stiff in the thoracic from glassing and sneaking. Keep it rotating.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Dead Hang', detail: '2 × 45 sec — full spinal decompression. After heavy pulling and carrying sessions, this undoes the compression. One of the highest ROI recovery movements.', equip: 'Pull Station', eqClass: 'eq-station' },
+        ]
+      },
+      {
+        label: 'Light Movement', badge: 'badge-b', title: 'Blood Flow Work', time: '15 min',
+        exercises: [
+          { name: 'Easy 15-Min Walk', detail: 'Flat pace, comfortable. If outside on trail, even better. This is not a Zone 2 workout — just movement. Focus on how your body feels and what is tight.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Band Pull-Aparts', detail: '3 × 15 — light band, diagonal-up, palms up. Shoulder health maintenance. Does not tax recovery at all.', equip: 'Bands', eqClass: 'eq-band' },
+          { name: 'McGill Bird-Dog', detail: '2 × 8 each side — slow, controlled. Core activation without load. Keeps the stabilizers awake on rest days.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+        ]
+      },
+    ]
+  },
+
+  gripcarry: {
+    id: 'gripcarry',
+    name: 'Grip & Carry',
+    icon: '🤝',
+    meta: '35 min · Pure loaded carry circuit',
+    tag: 'Carry',
+    tagColor: 'badge-c',
+    libTag: 'eq-kb',
+    blocks: [
+      {
+        label: 'Warm-Up', badge: 'badge-warmup', title: 'Shoulder + Wrist + Hip Prep', time: '5 min',
+        exercises: [
+          { name: 'Wrist Circles + Finger Extensions', detail: '30 sec each — farmers and suitcase carries demand grip endurance. Warm the wrists and forearms first.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Shoulder Circles + Band Pull-Apart', detail: '2 × 15 pull-aparts — get the posterior shoulder ready for overhead carries and extended farmer hold.', equip: 'Bands', eqClass: 'eq-band' },
+        ]
+      },
+      {
+        label: 'Carry Circuit', badge: 'badge-a', title: '4 Rounds — All Carry Variations', time: '24 min',
+        exercises: [
+          { name: 'Double KB Farmer Carry', detail: '75 ft — both 45 lb KBs, shoulders packed, tall posture. The bilateral loaded-gait pattern. Squeeze the handles like you are trying to leave marks.', equip: '2 × 45 lb KB', eqClass: 'eq-kb', note: 'Straight into next' },
+          { name: 'KB Suitcase Carry', detail: '50 ft each side — 70 lb KB, resist the lateral lean with your obliques. Switch sides at the halfway mark. Greater QL activation than farmer carry per total load.', equip: '70 lb KB', eqClass: 'eq-kb', note: 'Straight into next' },
+          { name: 'KB Overhead Carry', detail: '30 ft each side — 45 lb KB pressed overhead, locked out, walk tall. Core and shoulder stability under live load. The most demanding carry variation. Control the elbow — do not let it drift.', equip: '45 lb KB', eqClass: 'eq-kb', note: 'Straight into next' },
+          { name: 'Sandbag Bear Hug Carry', detail: '50 ft — 160 lb bag, bear hug it at chest height, walk it. Tests grip, biceps, upper back, core all at once. This is a bull elk quarter out of a canyon.', equip: '160 lb Bag', eqClass: 'eq-sb', note: 'Rest 90 sec, repeat 4 rounds total' },
+        ]
+      },
+      {
+        label: 'Grip Finisher', badge: 'badge-finisher', title: 'Dead Hangs to Failure', time: '5 min',
+        exercises: [
+          { name: 'Max Hang × 3', detail: '3 attempts at maximum dead hang time. Full grip, full hang, drop when you can no longer hold. Rest 60 sec between attempts. Log your time — grip endurance is directly tied to bow draw control and pack carry duration.', equip: 'Pull Station', eqClass: 'eq-station' },
+        ]
+      },
+    ]
+  },
+
+  conditioning: {
+    id: 'conditioning',
+    name: 'Conditioning Circuit',
+    icon: '🔥',
+    meta: '30–35 min · Pure cardio without running',
+    tag: 'Conditioning',
+    tagColor: 'badge-e',
+    libTag: 'eq-kb',
+    blocks: [
+      {
+        label: 'Warm-Up', badge: 'badge-warmup', title: 'Prime the Engine', time: '5 min',
+        exercises: [
+          { name: 'Jumping Jacks + Arm Circles', detail: '30 sec each — light, just wake up the body. This session will push your heart rate high quickly.', equip: 'Bodyweight', eqClass: 'eq-bw' },
+          { name: 'Goblet Squat + Hip Hinge', detail: '10 goblet squats + 10 hip hinges with 45 lb KB — prep the hips and posterior chain for swings.', equip: '45 lb KB', eqClass: 'eq-kb' },
+        ]
+      },
+      {
+        label: 'Circuit', badge: 'badge-a', title: '4 Rounds — No Rest Between Exercises', time: '20 min',
+        exercises: [
+          { name: '70 lb KB Swings × 15', detail: 'Hip snap, float at top, hike back through legs. Peak power at this load per Lake & Lauder (2012). Drives heart rate to ~87% HRmax within 2 rounds.', equip: '70 lb KB', eqClass: 'eq-kb', note: 'Straight into next' },
+          { name: 'Push-Up × 15', detail: 'Chest to floor, full lockout. If band-resisted, even better. Keeps upper body moving while heart rate is elevated from swings.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Straight into next' },
+          { name: 'KB Goblet Squat × 12', detail: '45 lb KB, full depth, elbows inside knees. Legs under metabolic stress from swings. This combination trains the exact overlap between strength and conditioning.', equip: '45 lb KB', eqClass: 'eq-kb', note: 'Straight into next' },
+          { name: 'Band Pull-Apart × 15', detail: 'Diagonal-up, palms up. Shoulder health rep while breathing hard. Keeps the session productive for shoulder integrity, not just cardio.', equip: 'Bands', eqClass: 'eq-band', note: 'Rest 60 sec, repeat 4 rounds' },
+        ]
+      },
+      {
+        label: 'Finisher', badge: 'badge-finisher', title: 'KB Swing EMOM — 5 Min', time: '5 min',
+        exercises: [
+          { name: 'Every Minute on the Minute × 5', detail: '15 swings at the top of each minute. Rest the remainder. If 15 is easy, go to 20. This is the gut-check to end the session. By minute 4 it should be hard.', equip: '70 lb KB', eqClass: 'eq-kb' },
+        ]
+      },
+    ]
+  },
+
 };
 
 // 21-WEEK SCHEDULE DATA
@@ -1434,6 +1709,14 @@ const DAY_TYPE_MAP = {
   push: { icon: '🔼', label: 'Push', dot: 'workout' },
   pull: { icon: '⬇️', label: 'Pull', dot: 'workout' },
   bagday: { icon: '💀', label: 'Bag Day', dot: 'workout' },
+  easyrun: { icon: '🏃', label: 'Easy Run', dot: 'zone2' },
+  temporun: { icon: '⏱️', label: 'Tempo Run', dot: 'workout' },
+  intervalrun: { icon: '⚡', label: 'Intervals', dot: 'workout' },
+  longrun: { icon: '🏔️', label: 'Long Run', dot: 'zone2' },
+  hillsprints: { icon: '⛰️', label: 'Hill Sprints', dot: 'workout' },
+  activerecovery: { icon: '🧘', label: 'Active Recovery', dot: 'rest' },
+  gripcarry: { icon: '🤝', label: 'Grip & Carry', dot: 'workout' },
+  conditioning: { icon: '🔥', label: 'Conditioning', dot: 'workout' },
   zone2: { icon: '🎒', label: 'Zone 2/Ruck', dot: 'zone2' },
   walk: { icon: '🚶', label: 'Daily Walk', dot: 'zone2' },
   rest: { icon: '😴', label: 'Rest', dot: 'rest' },
