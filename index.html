@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Hunt Prep">
+<meta name="apple-mobile-web-app-title" content="Elk Camp">
 <meta name="theme-color" content="#1a1a0e">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -13,7 +16,7 @@
 <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-<title>Hunt Prep</title>
+<title>Elk Camp</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1168,8 +1171,8 @@ html, body {
 <!-- SPLASH -->
 <div id="splash" class="screen active">
   <div class="splash-icon">🦌</div>
-  <div class="splash-logo">HUNT<br>PREP</div>
-  <div class="splash-sub">Elk Archery Training</div>
+  <div class="splash-logo">ELK<br>CAMP</div>
+  <div class="splash-sub">Hunt Prep · Missoula</div>
   <button class="splash-btn" onclick="enterApp()">Let's Go</button>
 </div>
 
@@ -2409,7 +2412,7 @@ const WORKOUTS = {
         label: 'Block A', badge: 'badge-a', title: 'Single-Leg Stance Progression', time: '8 min',
         exercises: [
           { name: 'A1 — Single-Leg Stand, Eyes Open', detail: '45 sec each side — stand on one foot, knee slightly bent, focus on a fixed point. This is the baseline. If you cannot hold 45 sec without the other foot touching down, start here and work up before progressing.', equip: 'Bodyweight', eqClass: 'eq-bw' },
-          { name: 'A2 — Single-Leg Stand, Eyes Closed', detail: '30 sec each side — same position, close your eyes. Proprioception (your body's self-sensing system) does all the work without visual input. This is the level that transfers to rocky/dark terrain. Expect to wobble significantly at first.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Near a wall first time — you will need it' },
+          { name: 'A2 — Single-Leg Stand, Eyes Closed', detail: '30 sec each side — same position, close your eyes. Proprioception (your body\'s self-sensing system) does all the work without visual input. This is the level that transfers to rocky/dark terrain. Expect to wobble significantly at first.', equip: 'Bodyweight', eqClass: 'eq-bw', note: 'Near a wall first time — you will need it' },
           { name: 'A3 — Single-Leg Stand on Folded Mat or Unstable Surface', detail: '30 sec each side — fold a yoga mat twice or use a balance pad. Unstable surface forces the ankle stabilizers to work maximally. Progress to doing this eyes-closed once eyes-open is solid.', equip: 'Bodyweight', eqClass: 'eq-bw' },
         ]
       },
@@ -3549,6 +3552,19 @@ function init() {
 
   showTab('schedule');
 }
+
+// Auto-skip splash for returning users
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('huntprep_state') || '{}');
+    if (saved.startDate) {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('app').style.display = 'flex';
+      document.getElementById('app').classList.add('active');
+      init();
+    }
+  } catch(e) {}
+});
 
 // Handle back button
 window.addEventListener('popstate', () => {
